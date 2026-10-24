@@ -1,0 +1,1122 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%231d4e89%27/%3E%3Cpath d=%27M6 22h20M8 22V13l8-6 8 6v9%27 stroke=%27%23fff%27 stroke-width=%272%27 fill=%27none%27/%3E%3Ccircle cx=%2716%27 cy=%2714%27 r=%273%27 fill=%27%23e3a13c%27/%3E%3C/svg%3E">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OIF-ELSFP-02.0 · 光学与眼安全交互速览</title>
+<style>
+:root{
+  --bg:#f3f7fc; --panel:#ffffff; --ink:#16202c; --blue:#1d4e89; --blue2:#2f6fb5;
+  --amber:#a96400; --line:#cfdcec; --muted:#5a6b80; --ok:#1c6b4a; --warn:#a13232;
+  --shadow:0 1px 2px rgba(22,32,44,.06),0 8px 24px rgba(22,32,44,.06);
+}
+html[data-theme="dark"]{
+  --bg:#0e1622; --panel:#152030; --ink:#e6edf6; --blue:#7fb3e8; --blue2:#a8cbf0;
+  --amber:#e3a13c; --line:#2b3c52; --muted:#9fb0c4; --ok:#5fc79b; --warn:#e08a8a;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font:var(--fs,16px)/1.72 -apple-system,"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+  background-image:repeating-linear-gradient(0deg,transparent 0 23px,rgba(29,78,137,.055) 23px 24px),
+                   repeating-linear-gradient(90deg,transparent 0 23px,rgba(29,78,137,.055) 23px 24px);
+}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px 96px}
+.bar{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--panel) 92%,transparent);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar .in{max-width:860px;margin:0 auto;padding:8px 16px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.bar .ttl{font-weight:700;font-size:14px;letter-spacing:.02em;margin-right:auto}
+.bar button,select{font:inherit;font-size:13px;min-height:34px;padding:4px 10px;border:1px solid var(--line);
+  border-radius:8px;background:var(--panel);color:var(--ink);cursor:pointer}
+.bar button:hover{border-color:var(--blue);color:var(--blue)}
+.bar .prog{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.chips{position:sticky;top:51px;z-index:39;background:var(--bg);border-bottom:1px solid var(--line)}
+.chips .in{display:flex;gap:6px;overflow-x:auto;padding:7px 16px;max-width:860px;margin:0 auto;scrollbar-width:thin}
+.chips a{font-size:13px;text-decoration:none;color:var(--muted);white-space:nowrap;padding:4px 9px;
+  border:1px solid transparent;border-radius:999px}
+.chips a:hover,.chips a.on{color:var(--blue);border-color:var(--line);background:var(--panel)}
+main{padding-top:18px}
+h1{font-size:1.69em;line-height:1.3;margin:6px 0 10px}
+h2{font-size:1.25em;margin:0 0 4px}
+h3{font-size:0.94em;margin:14px 0 4px;color:var(--blue)}
+p{margin:8px 0}
+a{color:var(--blue)}
+section{margin:0 0 34px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow)}
+.hero{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:var(--shadow)}
+.eyebrow{font:600 11px/1.4 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.14em;color:var(--amber);text-transform:uppercase}
+.lead{font-size:1.06em;line-height:1.7;margin:10px 0 0;color:var(--ink)}
+.sc-no{display:inline-block;font:600 11px/1 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.1em;
+  color:var(--blue);border:1px solid var(--line);border-radius:6px;padding:4px 7px;margin-bottom:8px}
+.sub{color:var(--muted);font-size:0.81em;margin:0 0 12px}
+figure{margin:14px 0;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px}
+figure svg{display:block;width:100%;height:auto}
+figcaption{font-size:0.78em;color:var(--muted);margin-top:8px;text-align:center}
+table{border-collapse:collapse;width:100%;font-size:0.84em;font-variant-numeric:tabular-nums}
+th,td{border:1px solid var(--line);padding:5px 7px;text-align:left}
+th{background:color-mix(in srgb,var(--blue) 9%,var(--panel));font-weight:600;font-size:12.5px}
+td.pos{white-space:nowrap;font-family:ui-monospace,Menlo,Consolas,monospace}
+td.laser{background:color-mix(in srgb,var(--blue) 16%,var(--panel));font-weight:600}
+td.dummy{color:var(--muted)}
+.scrollx{overflow-x:auto;-webkit-overflow-scrolling:touch}
+details{border:1px solid var(--line);border-radius:10px;padding:9px 12px;background:var(--panel);margin:12px 0}
+details[open]{background:color-mix(in srgb,var(--blue) 4%,var(--panel))}
+summary{cursor:pointer;font-size:0.875em;font-weight:600;color:var(--blue)}
+details .bd{margin-top:8px;font-size:0.91em}
+ul,ol{margin:8px 0;padding-left:22px}
+li{margin:4px 0}
+sup.cite{font-size:0.69em;color:var(--blue);cursor:pointer;padding:0 1px;user-select:none}
+sup.cite:hover{text-decoration:underline}
+.tag{font-size:11px;border:1px solid var(--line);border-radius:5px;padding:0 5px;color:var(--muted);margin-left:5px;white-space:nowrap}
+.tag[data-label="推算"]{color:var(--amber);border-color:color-mix(in srgb,var(--amber) 45%,var(--line))}
+.tag[data-label="读图"]{color:var(--blue2);border-color:color-mix(in srgb,var(--blue2) 45%,var(--line))}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.btnrow button{font:inherit;font-size:0.875em;min-height:40px;padding:6px 14px;border:1px solid var(--line);
+  border-radius:9px;background:var(--panel);color:var(--ink);cursor:pointer}
+.btnrow button[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+.guess{border:1px dashed var(--amber);border-radius:12px;padding:13px 15px;background:color-mix(in srgb,var(--amber) 7%,var(--panel))}
+.guess .q{font-weight:600;margin:0 0 8px}
+.guess .rv{margin-top:10px;padding:9px 11px;border-radius:9px;background:var(--panel);border:1px solid var(--line)}
+.quiz .qa{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0;background:var(--panel)}
+.quiz .qa summary{color:var(--ink)}
+.quiz .qa .bd{font-size:0.875em}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;font-size:0.875em;margin:8px 0}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0;font-variant-numeric:tabular-nums}
+.bar2{position:sticky;bottom:0;z-index:30;display:flex;justify-content:center;padding:8px;pointer-events:none}
+.bar2 button{pointer-events:auto;font:inherit;font-size:13px;min-height:40px;padding:6px 14px;border-radius:999px;
+  border:1px solid var(--line);background:var(--panel);color:var(--ink);box-shadow:var(--shadow);cursor:pointer;display:none}
+#pop{position:fixed;inset:0;z-index:60;display:none;background:rgba(10,16,24,.5);padding:20px}
+#pop.on{display:flex;align-items:center;justify-content:center}
+#pop .box{max-width:620px;width:100%;background:var(--panel);border:1px solid var(--line);border-radius:14px;
+  padding:16px 18px;max-height:80vh;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+#pop .pg{font:600 11px/1 ui-monospace,Menlo,Consolas,monospace;color:var(--amber);letter-spacing:.1em}
+#pop .q{font-size:14px;color:var(--muted);border-left:3px solid var(--line);padding-left:10px;margin:9px 0}
+#pop .zh{font-size:15px}
+#pop .cls{margin-top:12px;text-align:right}
+#toast{position:fixed;left:50%;bottom:64px;transform:translateX(-50%);z-index:70;background:var(--ink);color:var(--bg);
+  padding:8px 14px;border-radius:999px;font-size:13px;display:none}
+.note{font-size:13.5px;color:var(--muted);border-left:3px solid var(--amber);padding:2px 0 2px 11px;margin:12px 0}
+@media (max-width:520px){
+  h1{font-size:22px} h2{font-size:18px} .lead{font-size:16px}
+  .chips{top:49px}
+  .kv{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="bar"><div class="in">
+  <span class="ttl">OIF-ELSFP-CMIS-01.0 · 主机怎么管 ELSFP</span>
+  <span class="prog" id="prog">0%</span>
+  <button id="fsDown" title="缩小字号">A−</button>
+  <button id="fsUp" title="放大字号">A+</button>
+  <button id="theme" title="明暗切换">◐</button>
+</div></div>
+
+<div class="chips"><div class="in" id="nav">
+  <a href="#hero">30 秒版</a>
+  <a href="#s1">1 资源模块</a>
+  <a href="#s2">2 内存与 bank</a>
+  <a href="#s3">3 通告与能力</a>
+  <a href="#s4">4 阈值与告警</a>
+  <a href="#s5">5 使能与状态</a>
+  <a href="#s6">6 光纤检查</a>
+  <a href="#s7">7 监视与固件</a>
+  <a href="#quiz">自测</a>
+</div></div>
+
+<div class="wrap">
+<main>
+
+<section data-hero id="hero">
+  <div class="hero">
+    <p class="eyebrow">OIF Implementation Agreement · 2024-09-04 · 首次发布<sup class="cite" data-cite="revHist"></sup></p>
+    <h1>主机怎么通过 I²C 管住一格激光</h1>
+    <p class="lead">ELSFP 没有数据通路，激光不载信号。所以它不实现完整的光模块管理，而是把自己降级成 <strong>「资源模块」</strong>——只跑一个模块状态机，把要管的东西放进 <strong>Page 1Ah / 1Bh</strong> 两页，用 bank 切分 lane。<strong>知道每 lane 多少功率、哪根光纤查过了、哪条告警被屏蔽</strong>，就是这份规范的全部。<sup class="cite" data-cite="resModule"></sup> <sup class="cite" data-cite="byte43"></sup> <sup class="cite" data-cite="bankSelect"></sup></p>
+    <div class="chips-row">
+      <span class="chip">34 页原文</span>
+      <span class="chip">7 个场景</span>
+      <span class="chip">4 幅主视觉</span>
+      <span class="chip">71 条逐字引文</span>
+    </div>
+  </div>
+
+  <figure style="border:0;padding:0;background:transparent">
+    <svg viewBox="0 0 660 300" role="img" aria-label="主机通过 CMIS 两线接口管理 ELSFP 的整体结构">
+      <defs>
+        <marker id="mA" markerWidth="9" markerHeight="9" refX="7" refY="3.2" orient="auto"><path d="M0 0 L7 3.2 L0 6.4z" fill="var(--blue)"/></marker>
+        <marker id="mB" markerWidth="9" markerHeight="9" refX="7" refY="3.2" orient="auto"><path d="M0 0 L7 3.2 L0 6.4z" fill="var(--amber)"/></marker>
+      </defs>
+      <text x="20" y="20" font-size="10.5" fill="var(--muted)" font-family="monospace">HOST → ELSFP OVER CMIS TWO-WIRE (I2C) INTERFACE</text>
+
+      <!-- host -->
+      <rect x="20" y="40" width="130" height="66" rx="4" fill="var(--blue)" fill-opacity=".10" stroke="var(--blue)" stroke-width="1.4"/>
+      <text x="32" y="62" font-size="11" fill="var(--ink)" font-family="monospace">HOST</text>
+      <text x="32" y="78" font-size="9.5" fill="var(--muted)" font-family="monospace">CPO / OPTICAL</text>
+      <text x="32" y="92" font-size="9.5" fill="var(--muted)" font-family="monospace">ENGINE</text>
+
+      <!-- i2c bus -->
+      <path d="M152 73 L246 73" stroke="var(--blue)" stroke-width="1.6" marker-end="url(#mA)"/>
+      <text x="162" y="64" font-size="9.5" fill="var(--blue)" font-family="monospace">SDA / SCL</text>
+
+      <!-- ELSFP module box -->
+      <rect x="250" y="34" width="150" height="78" rx="4" fill="var(--blue2)" fill-opacity=".14" stroke="var(--blue)" stroke-width="1.6"/>
+      <text x="260" y="54" font-size="11" fill="var(--ink)" font-family="monospace">ELSFP MODULE</text>
+      <text x="260" y="70" font-size="9.5" fill="var(--muted)" font-family="monospace">RESOURCE MODULE</text>
+      <text x="260" y="85" font-size="9.5" fill="var(--muted)" font-family="monospace">BYTE 42 = MSM ONLY</text>
+      <text x="260" y="100" font-size="9.5" fill="var(--muted)" font-family="monospace">BYTE 43 = IA ENUM</text>
+
+      <!-- pages -->
+      <path d="M402 58 L446 58" stroke="var(--blue)" stroke-width="1.4" marker-end="url(#mA)"/>
+      <path d="M402 88 L446 88" stroke="var(--blue)" stroke-width="1.4" marker-end="url(#mA)"/>
+
+      <rect x="450" y="40" width="120" height="36" rx="3" fill="var(--blue)" fill-opacity=".10" stroke="var(--blue)" stroke-width="1.3"/>
+      <text x="458" y="56" font-size="10" fill="var(--ink)" font-family="monospace">PAGE 1Ah</text>
+      <text x="458" y="69" font-size="9" fill="var(--muted)" font-family="monospace">ADV / FLAG / CTRL</text>
+
+      <rect x="450" y="86" width="120" height="36" rx="3" fill="var(--blue)" fill-opacity=".10" stroke="var(--blue)" stroke-width="1.3"/>
+      <text x="458" y="102" font-size="10" fill="var(--ink)" font-family="monospace">PAGE 1Bh</text>
+      <text x="458" y="115" font-size="9" fill="var(--muted)" font-family="monospace">SETPOINT / MONITOR</text>
+
+      <!-- lane bank strip -->
+      <text x="20" y="146" font-size="10.5" fill="var(--muted)" font-family="monospace">BANK SELECT (LOW MEMORY BYTE 126) PICKS A GROUP OF 8 LANES</text>
+      <g id="bankG"></g>
+
+      <!-- lane chips -->
+      <text x="20" y="212" font-size="10.5" fill="var(--muted)" font-family="monospace">EACH LANE = ONE WAVELENGTH ON ONE FIBER CORE</text>
+      <g id="laneG"></g>
+
+      <!-- read / write legend -->
+      <g font-size="9.5" font-family="monospace">
+        <rect x="20" y="248" width="12" height="12" rx="2" fill="var(--blue)" fill-opacity=".3" stroke="var(--blue)" stroke-width="1.2"/>
+        <text x="38" y="258" fill="var(--muted)">HOST WRITES SETPOINT / ENABLE / MASK</text>
+        <rect x="320" y="248" width="12" height="12" rx="2" fill="var(--blue2)" fill-opacity=".3" stroke="var(--blue)" stroke-width="1.2"/>
+        <text x="338" y="258" fill="var(--muted)">MODULE REPORTS POWER / BIAS / FLAGS</text>
+      </g>
+    </svg>
+    <figcaption>主机通过 CMIS 两线接口管理 ELSFP —— 依据 OIF-ELSFP-CMIS-01.0 第 6/7/8/9 节与 Figure 3<sup class="cite" data-cite="mgmtIface"></sup> <sup class="cite" data-cite="twoWire"></sup></figcaption>
+    <p class="note">ELSFP 不载信号，所以没有数据通路状态机；主机管的是「每个 lane 多少光、哪根纤查过了、哪条告警要屏蔽」。</p>
+  </figure>
+
+  <details><summary>这份页面覆盖什么、不覆盖什么</summary>
+    <div class="bd">
+      <p>覆盖：资源模块与状态机、Page 1Ah/1Bh 内存布局与 bank 机制、通告与能力字段、阈值/告警/警告/掩码、lane 使能与状态机、输出光纤检查标志、监视量单位与固件升级。默认可见文字在两千字以内。</p>
+      <p>未覆盖：Table 5–8 中逐字节的完整寄存器清单（仅摘取关键行做速查）、CMIS v5.3 主体内容、OIF-CMIS-05.2 的 CDB 固件下载命令明细、附录 C 参与公司名单。这些请回原文 PDF 与 CMIS v5.3。</p>
+      <p class="note">原文页码与寄存器编号均可点角标回看。凡由我从图片（Figure 1/2/3）中读出的结构，标记为「读图」；凡由原文数值换算而来的，标记为「推算」。<sup class="cite" data-cite="memMap"></sup></p>
+    </div>
+  </details>
+</section>
+
+<section data-scene="1" id="s1">
+  <div class="card">
+    <span class="sc-no">场景 1</span>
+    <h2>它不是完整光模块，是「资源模块」</h2>
+    <p class="sub">CMIS v5.3 新增的一类模块形态：只借管理框架，不实现全部功能。<sup class="cite" data-cite="resModule"></sup></p>
+    <p class="lead2">打个比方：完整光模块像一辆卡车，能拉货也能载人；<strong>ELSFP 是一台只提供动力的机组</strong>——CMIS 的整套状态机它只跑最基本的那台，其余能力按需裁剪。</p>
+
+    <h3>模块分类：字节 42 告诉你它实现了哪台状态机</h3>
+    <p>低位内存的<strong>字节 42</strong>是模块分类字段，向主机通告这个资源模块实现了哪种状态机。分类共四档。<sup class="cite" data-cite="stateList"></sup></p>
+    <div class="btnrow" id="clsBtns" role="group" aria-label="选择模块分类"></div>
+    <div id="clsOut"></div>
+
+    <h3>ELSFP 只实现 MSM</h3>
+    <p>既然激光不载信号，就没有数据路径状态机（DPSM）可言。ELSFP 资源模块<strong>只应实现 CMIS v5.2 Figure 6-3 定义的 MSM（模块状态机）</strong>，低位内存里的应用描述符会被通告成「无应用存在」。<sup class="cite" data-cite="msmOnly"></sup> <sup class="cite" data-cite="noDPSM"></sup></p>
+
+    <figure data-figure>
+      <svg viewBox="0 0 660 210" role="img" aria-label="四种模块分类与 ELSFP 的落点">
+        <text x="20" y="20" font-size="10.5" fill="var(--muted)" font-family="monospace">MODULE CLASSIFICATION — LOW MEMORY BYTE 42</text>
+        <g id="clsG"></g>
+      </svg>
+      <figcaption>四档模块分类 —— ELSFP 落在第二档「仅 MSM」—— 依据第 7 节</figcaption>
+    </figure>
+
+    <details><summary>细节与原文</summary>
+      <div class="bd">
+        <ul>
+          <li><b>规范定位</b>：本 IA 扩展 CMIS 以管理 ELSFP 模块，被称为 ELSFP CMIS，是 CMIS 的<strong>伙伴文档</strong>；通信协议是 CMIS MCI 描述的双线接口（I²C）。<sup class="cite" data-cite="mgmtIface"></sup> <sup class="cite" data-cite="twoWire"></sup></li>
+          <li><b>字节 43</b>：枚举资源模块支持的实施协议，ELSFP 应实现内存映射第 3 节定义的 Page 1Ah / Page 1Bh。<sup class="cite" data-cite="byte43"></sup></li>
+          <li><b>术语</b>：资源模块指只提供部分资源管理能力、而非典型光收发器全部能力的模块（CMIS v5.3 定义）。<sup class="cite" data-cite="glossary"></sup></li>
+          <li><b>低位内存监视器</b>：ELSFP 必须在低位内存实现模块级监视器，具体是模块温度（字节 14–15）与供电电压（字节 16–17）；若有 TEC 电流与激光温度能力，走相应的辅助监视器通告。<sup class="cite" data-cite="lowerMem"></sup></li>
+          <li><b>Page 2 的分工</b>：ELSFP 的 Page 2 <strong>只</strong>用于模块级监视器阈值；与 lane 相关的阈值放在 Page 1Ah/1Bh。<sup class="cite" data-cite="page2"></sup></li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section data-scene="2" id="s2">
+  <div class="card">
+    <span class="sc-no">场景 2</span>
+    <h2>两页内存 + 一个 bank 开关</h2>
+    <p class="sub">Page 1Ah 管「是什么、能到哪」，Page 1Bh 管「现在调到多少、实测多少」。<sup class="cite" data-cite="byte43"></sup></p>
+    <p class="lead2">ELSFP 的全部状态就装在<strong>两页</strong>里。1Ah 是「名片与开关」，1Bh 是「刻度盘与读数」。lane 多的时候靠 <strong>bank</strong> 分组轮询。<sup class="cite" data-cite="bankSelect"></sup></p>
+
+    <figure data-figure>
+      <svg viewBox="0 0 660 330" role="img" aria-label="Page 1Ah 与 Page 1Bh 的分区布局">
+        <text x="20" y="20" font-size="10.5" fill="var(--muted)" font-family="monospace">ELSFP MEMORY LAYOUT — BANK SELECT BYTE 126, PAGE SELECT BYTE 127</text>
+
+        <!-- 1Ah column -->
+        <text x="20" y="46" font-size="11" fill="var(--blue)" font-family="monospace">PAGE 1Ah</text>
+        <g id="m1ahG"></g>
+        <text x="330" y="46" font-size="11" fill="var(--blue)" font-family="monospace">PAGE 1Bh</text>
+        <g id="m1bhG"></g>
+
+        <!-- bank bracket -->
+        <path d="M20 300 L20 312 L300 312 L300 300" fill="none" stroke="var(--amber)" stroke-width="1.4"/>
+        <text x="26" y="326" font-size="10" fill="var(--amber)" font-family="monospace">BANKED — INDEXED BY BANK SELECT, 8 LANES PER BANK</text>
+
+        <text x="330" y="300" font-size="10" fill="var(--muted)" font-family="monospace">ALL OF 1Bh IS BANKED</text>
+        <text x="330" y="316" font-size="10" fill="var(--muted)" font-family="monospace">BYTES 128-185 OF 1Ah ARE NOT</text>
+      </svg>
+      <figcaption>Page 1Ah / 1Bh 分区布局 —— 依据 Figure 3（读图）与第 8.1 节<sup class="cite" data-cite="bankSelect"></sup> <sup class="cite" data-cite="bankUnbanked"></sup></figcaption>
+    </figure>
+
+    <h3>bank 到底怎么切</h3>
+    <p><strong>Page 1Ah 的字节 186–255，以及 Page 1Bh 的全部</strong>，都由低位内存字节 126 的 bank select 索引。每个 bank 代表 <strong>8 个 lane</strong> 的分组。而 1Ah 的字节 128–185 <strong>不分 bank</strong>——无论切到哪个 bank，这些寄存器的内容和相关动作都一样。<sup class="cite" data-cite="bankSelect"></sup> <sup class="cite" data-cite="bankUnbanked"></sup></p>
+
+    <div class="btnrow" id="bankBtns" role="group" aria-label="切换 bank"></div>
+    <div id="bankOut"></div>
+
+    <div class="guess" data-guess>
+      <p class="q">先猜：一颗支持 16 个 lane 的 ELSFP，主机需要轮询几个 bank 才能读到全部 lane 的状态？</p>
+      <div class="btnrow" id="g2"></div>
+      <div class="rv" id="g2out" hidden></div>
+    </div>
+
+    <details><summary>细节与原文</summary>
+      <div class="bd">
+        <ul>
+          <li><b>字节序</b>：所有模拟量以<strong>大端（Big Endian）</strong>存放，MSB 在较低地址。<sup class="cite" data-cite="layout"></sup></li>
+          <li><b>相关页</b>：Table 1 列出 ELSFP 实际使用的 CMIS 页：低位内存、00h 管理信息、01h 通告、02h 阈值、03h 用户 NV RAM、1Ah/1Bh（每 bank 8 lane），以及 9Fh 与 A0h–AFh 的 CDB。<sup class="cite" data-cite="cdbsPage"></sup></li>
+          <li><b>附加信息</b>：1Ah 字节 224 起是 LaneToFiberMapping1–8（lane → 光连接器纤号的整数值映射）；232 起是 LaneFreq1–8（步进 5 GHz，范围 0–327.67 THz）。<sup class="cite" data-cite="laneToFiber"></sup> <sup class="cite" data-cite="laneFreq"></sup></li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section data-scene="3" id="s3">
+  <div class="card">
+    <span class="sc-no">场景 3</span>
+    <h2>通告：模块能到哪、主控用什么模式</h2>
+    <p class="sub">Page 1Ah 字节 128–164 是模块的「能力名片」。<sup class="cite" data-cite="maxOptPwr"></sup></p>
+    <p class="lead2">主机上手第一件事不是下发功率，而是<strong>先问清楚这块激光的边界</strong>：每 lane 最小多大、最大多大；用的是恒功率还是恒电流。问完了才知道能往哪个范围里调。<sup class="cite" data-cite="advRange"></sup> <sup class="cite" data-cite="advBias"></sup></p>
+
+    <h3>两种控制模式，二选一</h3>
+    <p>地址 140 的位 7–1 通告支持的 lane 数（主机据此推断 bank 数），位 0 通告<strong>控制模式</strong>：0b = ACC（自动电流控制），1b = APC（自动功率控制）。<sup class="cite" data-cite="numLanes"></sup> <sup class="cite" data-cite="modeBits"></sup></p>
+    <div class="btnrow" id="modeBtns" role="group" aria-label="选择控制模式"></div>
+    <div id="modeOut"></div>
+
+    <h3>能力通告的四个字段</h3>
+    <div class="scrollx"><table>
+      <thead><tr><th>地址</th><th>字段</th><th>编码</th><th>范围</th><th>在另一种模式下</th></tr></thead>
+      <tbody>
+        <tr><td class="pos">128–129</td><td>MaxOpticalPower</td><td>U16，步进 10 µW</td><td>0 – 655.35 mW</td><td>ACC 模式下上报 0<sup class="cite" data-cite="maxOptPwr"></sup></td></tr>
+        <tr><td class="pos">130–131</td><td>MinOpticalPower</td><td>U16，步进 10 µW</td><td>0 – 655.35 mW</td><td>ACC 模式下上报 0<sup class="cite" data-cite="maxOptPwr"></sup></td></tr>
+        <tr><td class="pos">132–133</td><td>MaxLaserBias</td><td>U16，步进 100 µA</td><td>0 – 6.5535 A</td><td>APC 模式下上报 0<sup class="cite" data-cite="maxBias"></sup></td></tr>
+        <tr><td class="pos">134–135</td><td>MinLaserBias</td><td>U16，步进 100 µA</td><td>0 – 6.5535 A</td><td>APC 模式下上报 0<sup class="cite" data-cite="maxBias"></sup></td></tr>
+        <tr><td class="pos">140</td><td>ControlModeAPCACC</td><td>位 0</td><td>0b = ACC，1b = APC</td><td>—<sup class="cite" data-cite="modeBits"></sup></td></tr>
+        <tr><td class="pos">140</td><td>NumberOfLanes</td><td>位 7–1</td><td>每 bank 8 lane</td><td>—<sup class="cite" data-cite="numLanes"></sup></td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">注意这个「上报 0」的设计：<strong>在 APC 模式下，偏置相关字段报 0；在 ACC 模式下，功率相关字段报 0</strong>。因为此时该模式的量由模块自己闭环管着，主机不该、也读不到。主机读到的 0 意味着「此字段在当前模式下不适用」，而不是「零功率」。<sup class="cite" data-cite="maxOptPwr"></sup> <sup class="cite" data-cite="maxBias"></sup></p>
+
+    <details><summary>细节与原文</summary>
+      <div class="bd">
+        <ul>
+          <li><b>两种模式的定义</b>：APC 模式下 ELSFP 维持恒定光输出功率；ACC 模式下 ELSFP 调节供给激光二极管的驱动电流。<sup class="cite" data-cite="ctrlMode"></sup></li>
+          <li><b>通告的用途</b>：在 APC 模式下，功率范围字段向主机指示「ELSFP 满足厂商规格的功率控制范围」；在 ACC 模式下，偏置范围字段同理。<sup class="cite" data-cite="advRange"></sup> <sup class="cite" data-cite="advBias"></sup></li>
+          <li><b>lane 的定义</b>：lane 是单根纤芯上的单个波长。<sup class="cite" data-cite="laneDef"></sup></li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section data-scene="4" id="s4">
+  <div class="card">
+    <span class="sc-no">场景 4</span>
+    <h2>阈值、告警、警告与掩码</h2>
+    <p class="sub">每个被监视的参数都有四条线：高低告警、高低警告。<sup class="cite" data-cite="thresh"></sup></p>
+    <p class="lead2">这一层是主机判断「这激光还正常吗」的地方。规则很朴素：<strong>每个量配四个阈值</strong>，越线就置标志；标志是<strong>锁存</strong>的，主机得主动读走；不想看的可以掩掉。<sup class="cite" data-cite="flagsLatched"></sup> <sup class="cite" data-cite="masks"></sup></p>
+
+    <h3>四类阈值，四种严重程度</h3>
+    <div class="btnrow" id="thrBtns" role="group" aria-label="选择阈值类型"></div>
+    <div id="thrOut"></div>
+
+    <h3>告警 vs 警告</h3>
+    <div class="scrollx"><table>
+      <thead><tr><th>类型</th><th>关联的量</th><th>含义</th></tr></thead>
+      <tbody>
+        <tr><td><b>告警 Alarm</b></td><td>lane 偏置电流、lane 输出光功率</td><td>指示可能与<strong>链路故障</strong>相关、需立即处理的状态</td></tr>
+        <tr><td><b>警告 Warning</b></td><td>lane 偏置电流、lane 输出光功率</td><td>指示<strong>超出正常保证范围</strong>，但未必是立即失效</td></tr>
+      </tbody>
+    </table></div>
+    <p>警告还可能被厂商用作<strong>寿命终结指示器</strong>——比如恒功率控制环里偏置电流比预期高。<sup class="cite" data-cite="flagTypes"></sup> <sup class="cite" data-cite="warnEOL"></sup></p>
+
+    <h3>标志、汇总、掩码：三层结构</h3>
+    <figure data-figure>
+      <svg viewBox="0 0 660 250" role="img" aria-label="lane 标志经 OR 汇总到 LaneSummary 的结构">
+        <text x="20" y="20" font-size="10.5" fill="var(--muted)" font-family="monospace">LANE FLAGS → OR → SUMMARY BIT (NOT LATCHED, NOT COR)</text>
+        <g id="sumG"></g>
+        <text x="20" y="228" font-size="10" fill="var(--muted)">源告警本身才是 latched / COR 的；汇总位只是实时 OR，</text>
+        <text x="20" y="243" font-size="10" fill="var(--muted)">所以读它不会把下面的告警清掉。</text>
+      </svg>
+      <figcaption>故障/警告的 OR 汇总结构 —— 依据 Figure 1 / Figure 2（读图）与第 8.13/8.14 节<sup class="cite" data-cite="summaryFault"></sup> <sup class="cite" data-cite="summaryWarn"></sup></figcaption>
+    </figure>
+
+    <div class="guess" data-guess>
+      <p class="q">先猜：LaneSummaryFault 这个汇总位本身是锁存（latched）或读后清（COR）的吗？</p>
+      <div class="btnrow" id="g4"></div>
+      <div class="rv" id="g4out" hidden></div>
+    </div>
+
+    <details><summary>细节与原文</summary>
+      <div class="bd">
+        <ul>
+          <li><b>阈值位置</b>：存在 Page 1Ah 地址 141–156。<strong>激光电压与模块 Icc 电流没有阈值</strong>——这两个监视器只是信息性的。<sup class="cite" data-cite="thresh"></sup> <sup class="cite" data-cite="threshAddr"></sup> <sup class="cite" data-cite="threshVolts"></sup></li>
+          <li><b>阈值的性质</b>：出厂预设值，厂商之间会不同；上报值可能是标称工况下的典型值，并可能做温度补偿——补偿与调整是厂商专有且完全可选的。<sup class="cite" data-cite="threshVendor"></sup></li>
+          <li><b>标志</b>：告警/警告标志是<strong>锁存</strong>的，存在 Page 1Ah 地址 186–193。<sup class="cite" data-cite="flagsLatched"></sup></li>
+          <li><b>掩码</b>：lane 专用掩码在 Page 1Ah 地址 198–205，掩码位为 1 可阻止对应标志被置起。掩码位<strong>易失</strong>、上电全部未屏蔽；用途是防止持续存在的条件反复重新置位标志。<sup class="cite" data-cite="masks"></sup> <sup class="cite" data-cite="maskDefault"></sup></li>
+          <li><b>汇总位</b>：1Ah 字节 165 的位 2 是 LaneSummaryFault、位 3 是 LaneSummaryWarning。故障汇总来自字节 166–169，警告汇总来自 174–177，全部布尔 OR 后反映到汇总位——<strong>汇总位本身不是 latched 也不是 COR</strong>。<sup class="cite" data-cite="summaryFault"></sup> <sup class="cite" data-cite="summaryWarn"></sup> <sup class="cite" data-cite="summaryBits"></sup></li>
+          <li><b>故障码与警告码</b>：故障码 0 无告警、1 APC 控制环失效、2 ACC 控制环失效、3–8 保留、9–15 厂商专有；警告码结构相同，只是 1/2 变成「控制环警告」。<sup class="cite" data-cite="faultCodes"></sup> <sup class="cite" data-cite="warnCodes"></sup></li>
+          <li><b>模块级故障</b>：通过低位内存地址 3 位 3–1 的 ModuleState 通报，模块会转入 Module Fault 状态；原因可从低位内存地址 41 位 7–0 的 ModuleFaultCause 读出。<sup class="cite" data-cite="moduleFault"></sup> <sup class="cite" data-cite="faultCause"></sup></li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section data-scene="5" id="s5">
+  <div class="card">
+    <span class="sc-no">场景 5</span>
+    <h2>使能与状态：主机怎么开关一个 lane</h2>
+    <p class="sub">1Ah 字节 220 是开关，221–222 是状态回读。<sup class="cite" data-cite="laneEnable"></sup> <sup class="cite" data-cite="laneState"></sup></p>
+    <p class="lead2">主机要开一个 lane：<strong>往 220 写 1</strong>，然后<strong>轮询 221–222</strong> 看它走到哪一步了。状态是 2 位的，走了三步：关 → 爬升 → 开。<sup class="cite" data-cite="laneState"></sup></p>
+
+    <h3>状态机：2 位看 4 态</h3>
+    <div class="btnrow" id="stBtns" role="group" aria-label="选择 lane 状态"></div>
+    <div id="stOut"></div>
+
+    <div class="guess" data-guess>
+      <p class="q">先猜：LaneState 的 2 位里，<code>11b</code> 表示什么状态？</p>
+      <div class="btnrow" id="g5"></div>
+      <div class="rv" id="g5out" hidden></div>
+    </div>
+
+    <details><summary>细节与原文</summary>
+      <div class="bd">
+        <ul>
+          <li><b>使能位</b>：字节 220 保留给主机，用 LaneEnable1–8 位使能（1b）或禁止（0b）8 个 lane。<sup class="cite" data-cite="laneEnable"></sup></li>
+          <li><b>状态回读</b>：字节 221–222 是只读位对，与 220 的 8 个使能位一一对应；<code>00b</code> 关、<code>01b</code> 爬升中、<code>10b</code> 开，<code>11b</code> 保留给未来更复杂的状态机。<sup class="cite" data-cite="laneState"></sup></li>
+          <li><b>共享激光的坑</b>：梳状激光器或把一个激光分光到多个 lane 时，<strong>禁止单个 lane 可能影响其他 lane</strong>；此时由 ELSFP 供应商提供合适的激光到 lane 映射。<sup class="cite" data-cite="laneShared"></sup></li>
+          <li><b>保存与恢复</b>：经由 1Ah 字节 184–185 可把 lane 控制量（1Bh.128–183）与告警/警告掩码（1Ah.198–211）存到非易失存储器，每类两个槽位，外加一个出厂设置。使用流程是：读 185 确认无命令在执行 → 写 184 下命令 → 轮询 185 直到出结果。为避免竞态，写 184 后的下一次成功读必须返回「命令执行中」。若槽里没有有效数据，恢复命令返回 <code>04h</code>。注意 184–185 <strong>不在 banked 区段</strong>，因此对所有 bank 的所有 lane 生效。<sup class="cite" data-cite="saveRestore"></sup> <sup class="cite" data-cite="saveWhat"></sup> <sup class="cite" data-cite="saveSlots"></sup> <sup class="cite" data-cite="saveProc"></sup> <sup class="cite" data-cite="saveCode"></sup> <sup class="cite" data-cite="saveNotBanked"></sup></li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section data-scene="6" id="s6">
+  <div class="card">
+    <span class="sc-no">场景 6</span>
+    <h2>输出光纤检查：15 dBm 的那道闸门</h2>
+    <p class="sub">这一节直接接上 ELSFP 硬件 IA 里的「上电前先低功率试链路」。</p>
+    <p class="lead2">这是整份规范里<strong>最要命的一条</strong>：光路里有灰尘会烧光纤。所以模块默认把每芯输出压在 <strong>15 dBm 以内</strong>，直到主机把「这根纤我查过了」这个标志置起来。<sup class="cite" data-cite="checkLimit"></sup> <sup class="cite" data-cite="fiberCheck"></sup></p>
+
+    <h3>一个标志，两种状态</h3>
+    <div class="btnrow" id="fcBtns" role="group" aria-label="切换光纤检查标志"></div>
+    <div id="fcOut"></div>
+
+    <figure data-figure>
+      <svg viewBox="0 0 660 250" role="img" aria-label="输出光纤检查标志与功率限制">
+        <text x="20" y="20" font-size="10.5" fill="var(--muted)" font-family="monospace">OUTPUT FIBER CHECKED FLAG (PAGE 1Ah BYTE 223) GATES THE OUTPUT POWER</text>
+        <!-- flag 0 -->
+        <rect x="20" y="40" width="290" height="120" rx="4" fill="var(--amber)" fill-opacity=".10" stroke="var(--amber)" stroke-width="1.5"/>
+        <text x="34" y="62" font-size="11" fill="var(--ink)" font-family="monospace">FLAG = 0b  (DEFAULT, ALSO ON RESET)</text>
+        <text x="34" y="84" font-size="10" fill="var(--muted)" font-family="monospace">LASER ON → FIXED POWER PER 1Ah:248</text>
+        <text x="34" y="102" font-size="10" fill="var(--muted)" font-family="monospace">OPTCHECKPOWER SETPOINT (1 mW STEP)</text>
+        <text x="34" y="124" font-size="13" fill="var(--amber)" font-family="monospace">MAX 15 dBm PER FIBER CORE</text>
+        <text x="34" y="144" font-size="10" fill="var(--muted)" font-family="monospace">MODULE REGULATES POWER PER LANE</text>
+
+        <!-- flag 1 -->
+        <rect x="350" y="40" width="290" height="120" rx="4" fill="var(--ok)" fill-opacity=".10" stroke="var(--ok)" stroke-width="1.5"/>
+        <text x="364" y="62" font-size="11" fill="var(--ink)" font-family="monospace">FLAG = 1b  (HOST SETS IT)</text>
+        <text x="364" y="84" font-size="10" fill="var(--muted)" font-family="monospace">HOST CONFIRMED CONTINUITY AND</text>
+        <text x="364" y="102" font-size="10" fill="var(--muted)" font-family="monospace">EXPECTED INPUT POWER AT THE FAR END</text>
+        <text x="364" y="124" font-size="13" fill="var(--ok)" font-family="monospace">FULL OUTPUT POWER RANGE ALLOWED</text>
+        <text x="364" y="144" font-size="10" fill="var(--muted)" font-family="monospace">ON THAT FIBER</text>
+
+        <!-- warning -->
+        <rect x="20" y="174" width="620" height="52" rx="4" fill="none" stroke="var(--warn)" stroke-width="1.4"/>
+        <text x="34" y="194" font-size="10.5" fill="var(--warn)" font-family="monospace">WHY IT MATTERS</text>
+        <text x="34" y="212" font-size="10" fill="var(--muted)" font-family="monospace">光路中的污染（颗粒、灰尘、凝结水、异物）会造成永久损伤；15 dBm 这个限值假定常见的</text>
+        <text x="34" y="226" font-size="10" fill="var(--muted)" font-family="monospace">单模或保偏光纤尺寸与光功率密度，遇到特殊光纤条件可能需要重新评估。</text>
+      </svg>
+      <figcaption>输出光纤检查标志与 15 dBm 限制 —— 依据第 8.10 节<sup class="cite" data-cite="checkLimit"></sup> <sup class="cite" data-cite="optCheckSetpoint"></sup></figcaption>
+    </figure>
+
+    <div class="guess" data-guess>
+      <p class="q">先猜：在光纤检查标志还是 0b 的时候，ELSFP 每根纤芯允许的最大输出功率是多少？</p>
+      <div class="btnrow" id="g6"></div>
+      <div class="rv" id="g6out" hidden></div>
+    </div>
+
+    <details><summary>细节与原文</summary>
+      <div class="bd">
+        <ul>
+          <li><b>标志的语义</b>：允许主机指明哪些光纤已完成连续性检查、被认定<strong>可以在全范围输出光功率下</strong>安全工作。<sup class="cite" data-cite="fiberCheck"></sup></li>
+          <li><b>15 dBm 限制</b>：主机把标志置 1b 之前，激光 ON 时 ELSFP 必须按 1Ah:248（OptCheckPowerSetpoint）通告的固定功率输出；<strong>标志为 0b 期间每芯最大功率不得超过 15 dBm</strong>，超过该等级时若光路存在污染会造成永久损伤。<sup class="cite" data-cite="checkLimit"></sup></li>
+          <li><b>OptCheckPowerSetpoint</b>：字节 248，所有 lane 的光功率设定点，步进 1 mW，总范围 0–255 mW，但每芯最大功率不得超过 15 dBm。<sup class="cite" data-cite="optCheckSetpoint"></sup></li>
+          <li><b>默认值与责任</b>：标志默认为 0b 直到主机置位，模块复位时也复位为 0b；<strong>主机负责管理整个光纤检查流程</strong>。判定可基于对 ELSFP 到 OE 路径插入损耗的估算。<sup class="cite" data-cite="checkDefaults"></sup></li>
+          <li><b>共享光纤</b>：多个 lane 共享一根光纤时，可能存在一些冗余标志。<sup class="cite" data-cite="checkShared"></sup></li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section data-scene="7" id="s7">
+  <div class="card">
+    <span class="sc-no">场景 7</span>
+    <h2>监视量、设定点与固件升级</h2>
+    <p class="sub">Page 1Bh：主机写设定点，模块回报实测值。<sup class="cite" data-cite="monitors"></sup></p>
+    <p class="lead2">最后一层是「调多少」和「实际多少」。四个监视量、三类设定点——单位全是整数，主机读到的永远是 <strong>U16 原始值</strong>，换算得自己来。<sup class="cite" data-cite="multiByte"></sup>
+
+    <h3>四个监视量：LSV 就是主机要算的题</h3>
+    <div class="scrollx"><table>
+      <thead><tr><th>监视量</th><th>单位</th><th>LSB</th><th>满量程</th><th>位置</th></tr></thead>
+      <tbody>
+        <tr><td>lane 偏置电流</td><td>A</td><td>100 µA</td><td>0 – 6.5535 A</td><td class="pos">1Bh 184–199<sup class="cite" data-cite="biasMon"></sup> <sup class="cite" data-cite="monBiasAddr"></sup></td></tr>
+        <tr><td>lane 输出光功率</td><td>mW</td><td>10 µW</td><td>0 – 6.5535 W<br><span class="muted">≈ −40 … +38.16 dBm</span><sup class="cite" data-cite="optMon"></sup></td><td class="pos">1Bh 200–215<sup class="cite" data-cite="monOptAddr"></sup></td></tr>
+        <tr><td>激光电压</td><td>V</td><td>15 mV</td><td>0 – 3.825 V</td><td class="pos">1Bh 232–239<sup class="cite" data-cite="voltMon"></sup> <sup class="cite" data-cite="monVoltAddr"></sup></td></tr>
+        <tr><td>模块 Vcc 电流<span class="tag">可选</span></td><td>A</td><td>200 µA</td><td>0 – 13.107 A<br><span class="muted">不支持时上报 0000h</span><sup class="cite" data-cite="iccMon"></sup></td><td class="pos">1Bh 240–241<sup class="cite" data-cite="monIccAddr"></sup></td></tr>
+      </tbody>
+    </table></div>
+    <p>光功率那一行是最容易算错的：<strong>65535 × 10 µW = 655.35 mW = 0.65535 W</strong>，但原文写的是 6.5535 W。这两个数对不上——按 LSB = 10 µW 推，量程上限是 0.65535 W，对应约 −1.8 dBm 到 +28.2 dBm；原文同时给出的「−40 到 +38.16 dBm」也与 0.65535 W 不自洽。所以这一行<strong>原文自身存在数值矛盾</strong>，用的时候以厂商数据手册为准。<sup class="cite" data-cite="optMon"></sup></p>
+    <p class="note">原文的 6.5535 W 与 −40…+38.16 dBm 是逐字引用的；矛盾是我比对 LSB 推算后发现的，标为「推算」的是我给出的自洽值。<span class="tag">推算</span></p>
+
+    <div class="btnrow" id="rawBtns" role="group" aria-label="选择监视量"></div>
+    <div id="rawOut"></div>
+
+    <h3>设定点：1Bh 的读写分工</h3>
+    <ul>
+      <li><b>偏置电流设定点</b>：1Bh 字节 128–143 起，8 个 lane 各 2 字节，步进 100 µA，范围 0–6.5535 A（RW）。<sup class="cite" data-cite="biasSetpoint"></sup></li>
+      <li><b>光功率设定点</b>：1Bh 字节 144–159 起，步进 10 µW，范围 0–655.35 mW（RW）。<sup class="cite" data-cite="optSetpoint"></sup></li>
+      <li><b>监视量</b>：1Bh 字节 184 起（只读）。<sup class="cite" data-cite="monitors"></sup> <sup class="cite" data-cite="monBiasAddr"></sup></li>
+    </ul>
+
+    <h3>固件升级：借 CDB 走</h3>
+    <p>CMIS 的可选特性 <strong>CDB（Command Data Block）</strong>允许主机发起超出「读写寄存器」的功能交互，被理解为一种<strong>非对称的命令-应答式消息交换</strong>。固件升级就复用它，用页 <code>0x9F</code> 到 <code>0xAF</code>；具体应支持的 CDB 固件下载命令列在 OIF-CMIS-05.2 的 Table 9–14。厂商也可能复用 CDB 更新自己的校准数据。<sup class="cite" data-cite="cdb"></sup> <sup class="cite" data-cite="fwCmds"></sup></p>
+
+    <details><summary>细节与原文</summary>
+      <div class="bd">
+        <ul>
+          <li><b>被监视参数</b>：lane 偏置电流、lane 输出光功率、lane 激光电压，另加可选的模块 Vcc 电流监视。<sup class="cite" data-cite="monitors"></sup></li>
+          <li><b>偏置电流</b>：单位安培，16 位无符号整数，LSB = 100 µA，量程 0–6.5535 A，精度由厂商决定。<sup class="cite" data-cite="biasMon"></sup></li>
+          <li><b>激光电压</b>：16 位无符号整数，LSB = 15 mV，量程 0–+3.825 V。<sup class="cite" data-cite="voltMon"></sup></li>
+          <li><b>Vcc 电流</b>：16 位无符号整数，LSB = 200 µA，量程 0–+13.107 A；若不支持，上报 <code>0000h</code>。<sup class="cite" data-cite="iccMon"></sup> <sup class="cite" data-cite="iccReg"></sup></li>
+          <li><b>多字节一致性</b>：ELSFP 更新多字节字段时不得出现部分更新的字段被传给主机；传输过程中也不得更新结构内的多字节字段。<sup class="cite" data-cite="multiByte"></sup></li>
+          <li><b>精度</b>：被监视参数的精度要求取决于厂商与应用，达成条件应查厂商数据手册。<sup class="cite" data-cite="accuracy"></sup></li>
+          <li><b>设定点寄存器</b>：BiasCurrentSetpoint4（1Bh 134–135）与 OptPowerSetpoint1（1Bh 144–145）的原文定义。<sup class="cite" data-cite="biasSetpoint"></sup> <sup class="cite" data-cite="optSetpoint"></sup></li>
+          <li><b>规范性引用</b>：CMIS 通用管理接口规范 Rev 5.3；参考性引用：白皮书《外置光源与共封装光引擎的管理》。<sup class="cite" data-cite="cmisRef"></sup> <sup class="cite" data-cite="elsfpRef"></sup></li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="quiz">
+  <div class="card quiz">
+    <span class="sc-no">结尾自测</span>
+    <h2>你答得上来吗</h2>
+    <p class="sub">三道题，答案都带出处。点开看。</p>
+
+    <div class="qa" data-quiz>
+      <details><summary>1. 主机在读 1Ah 字节 128–129（MaxOpticalPower）时得到 0，说明什么？</summary>
+        <div class="bd">
+          <p>说明模块当前工作在 <strong>ACC（自动电流控制）</strong>模式——在该模式下功率相关寄存器上报 0，<strong>不表示零功率</strong>。同理，APC 模式下偏置相关字段（132–135）上报 0。<sup class="cite" data-cite="maxOptPwr"></sup></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="qa" data-quiz>
+      <details><summary>2. 输出光纤检查标志（1Ah 字节 223）还是 0b 时，ELSFP 每芯最大输出功率是多少？</summary>
+        <div class="bd">
+          <p><strong>15 dBm</strong>。此时模块按 1Ah:248（OptCheckPowerSetpoint）输出固定功率，并自行调节每 lane 功率。主机把标志置 1b 前不得超过此限，否则光路污染会造成永久损伤。<sup class="cite" data-cite="checkLimit"></sup></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="qa" data-quiz>
+      <details><summary>3. LaneSummaryFault 位本身是锁存（latched）或读后清（COR）的吗？</summary>
+        <div class="bd">
+          <p><strong>都不是</strong>。它只是各 lane 故障位的实时布尔 OR，本身不锁存、也不是 COR——因为源告警标志本身才是 latched / COR 的。<sup class="cite" data-cite="summaryFault"></sup></p>
+        </div>
+      </details>
+    </div>
+
+    <p class="note">关键数字和规则，请点开角标对一下原句。原文：OIF-ELSFP-CMIS-01.0，2024 年 9 月 4 日首次发布，Physical and Link Layer (PLL) Working Group。<sup class="cite" data-cite="revHist"></sup></p>
+  </div>
+</section>
+
+</main>
+</div>
+
+<div class="bar2"><button id="backBtn">↑ 回到刚才的位置</button></div>
+
+<div id="pop" role="dialog" aria-modal="true" aria-label="原文出处">
+  <div class="box">
+    <div class="pg" id="popPg"></div>
+    <div class="q" id="popQ"></div>
+    <div class="zh" id="popZ"></div>
+    <div class="cls"><button id="popClose">关闭 (Esc)</button></div>
+  </div>
+</div>
+<div id="toast"></div>
+<script>
+/* ---------- 事实账本：每条 = 原文页码 + 原句 + 中文转述 ---------- */
+/* ============================================================================
+   事实账本 —— OIF-ELSFP-CMIS-01.0
+   每条：原文页码 + 英文原句（逐字）+ 中文转述
+   校验方式：脚本对 PDF 文本层做分页规范化匹配（去标点、去换行连字符），允许 [...] 分段
+   ========================================================================== */
+const SOURCES = {
+  /* ---- 6 Management Interface ---- */
+  mgmtIface:{page:6,quote:"This Implementation Agreement extends the Common Management Interface Specification [CMIS] to allow management of External Laser Small Factor Pluggable [ELSFP] modules. This Implementation Agreement will be referred to as ELSFP CMIS and this implementation agreement is a partner document to CMIS.",zh:"本实施协议扩展通用管理接口规范 CMIS，用于管理外置激光小封装可插拔模块（ELSFP）。它被称为 ELSFP CMIS，是 CMIS 的伙伴文档。"},
+  twoWire:{page:7,quote:"The communication protocol for ELSFP modules is the two-wire interface as described in CMIS MCI defined in [1]-B.2.",zh:"ELSFP 模块的通信协议是 CMIS MCI 描述的双线接口（I²C），见 [1] 附录 B.2。"},
+
+  /* ---- 7 Resource Module Definition ---- */
+  resModule:{page:7,quote:"CMIS v5.3 enables a class of modules like the ELSFP to utilize CMIS without using its full feature set. Such modules are defined as resource modules. Two bytes are defined in low memory of the CMIS memory map specific to resource modules.",zh:"CMIS v5.3 允许像 ELSFP 这类模块使用 CMIS 而不用其全部功能集，这类模块定义为资源模块（resource module）。CMIS 内存映射的低位内存中为资源模块定义了两个字节。"},
+  byte42:{page:7,quote:"Byte 42 of low memory indicates module classification. Module classification advertises which state machine a resource module implements.",zh:"低位内存的字节 42 表示模块分类，向主机通告该资源模块实现了哪一种状态机。"},
+  msmOnly:{page:7,quote:"An ELSFP resource module shall implement only the MSM (Module State Machine) defined in Figure 6-3 of CMIS v5.2.",zh:"ELSFP 资源模块只应实现 CMIS v5.2 Figure 6-3 定义的 MSM（模块状态机）。"},
+  byte43:{page:7,quote:"Byte 43 of low memory enumerates the IA supported for resource module. ELSFP shall implement Page 1Ah/Page 1Bh as defined in Section 3 of the memory map.",zh:"低位内存的字节 43 枚举资源模块支持的实施协议；ELSFP 应实现内存映射第 3 节定义的 Page 1Ah / Page 1Bh。"},
+  stateList:{page:7,quote:"• No interactive state machines (i.e., fully passive EEPROM-style) • MSM only (RESOURCE MODULES) • MSM + DPSM • MSM + DPSM + NPSM",zh:"模块分类共四档：无交互式状态机（完全被动、EEPROM 式）；仅 MSM（资源模块）；MSM + DPSM；MSM + DPSM + NPSM。"},
+
+  /* ---- 8.1 Bank Select ---- */
+  bankSelect:{page:8,quote:"Bytes 186-255 of page 1Ah, and all of page 1Bh are indexed by the bank select in lower memory Byte 126. Each bank represents a group of 8 lanes, using the same mapping as specified in [1]-8.1.2. For bytes 128-185 of page 1Ah the register content and any associated actions shall be the same regardless of the bank select.",zh:"Page 1Ah 的字节 186–255 以及 Page 1Bh 全部，由低位内存字节 126 的 bank select 索引。每个 bank 代表 8 个 lane 的分组，映射方式同 [1] 8.1.2。而 Page 1Ah 的字节 128–185，其寄存器内容与相关动作不随 bank select 改变（不分 bank）。"},
+  bankUnbanked:{page:7,quote:"1 Bytes 128-185 of page 1Ah are not banked, but bytes 186-255 are banked. See section 8.1. 2 N = number of lanes supported divided by 8.",zh:"注 1：Page 1Ah 的字节 128–185 不分 bank，字节 186–255 分 bank。注 2：N = 支持的 lane 数除以 8。"},
+
+  /* ---- 8.2 Lower Memory ---- */
+  lowerMem:{page:8,quote:"The module level monitors defined in lower memory shall be implemented in an ELSFP module. Specifically, ELSFP modules shall report module temperature monitor (Byte 14 -15) and supply voltage monitor (Byte 16-17).",zh:"低位内存中定义的模块级监视器必须在 ELSFP 模块中实现。具体来说，ELSFP 模块应上报模块温度监视器（字节 14–15）和供电电压监视器（字节 16–17）。"},
+  noDPSM:{page:8,quote:"ELSFP modules are required to support the Module State Machine (MSM). Since there is no concept of Data Path State Machine (DPSM) in an ELSFP module, the application descriptor advertising fields in lower memory will be advertised to indicate no applications present.",zh:"ELSFP 模块必须支持模块状态机（MSM）。由于 ELSFP 模块中不存在数据路径状态机（DPSM）概念，低位内存中的应用描述符通告字段将被通告为「无应用存在」。"},
+  page2:{page:8,quote:"Page 2 in ELSFP modules will be used to specify thresholds for module level monitors only. Lane related monitor thresholds will be specified in Page 1Ah/1Bh",zh:"ELSFP 模块中的 Page 2 只用于指定模块级监视器的阈值；与 lane 相关的监视器阈值在 Page 1Ah/1Bh 中指定。"},
+
+  /* ---- 8.4 Advertisement & Capabilities ---- */
+  advRange:{page:8,quote:"Page 1Ah, Address 128-131 advertises the maximum and minimum operatable output power per lane. In Automatic power control mode (APC), this field is an indication to the host of the range of power control where the ELSFP will be within specifications defined by the vendor.",zh:"Page 1Ah 地址 128–131 通告每 lane 可工作的最大与最小输出光功率。在自动功率控制（APC）模式下，该字段向主机指示 ELSFP 能满足厂商规格的功率控制范围。"},
+  advBias:{page:8,quote:"Page 1Ah, Address 132-135 advertises the maximum and minimum operatable laser bias per lane. In Automatic current control mode (ACC), this field is an indication to the host of the range of bias control where the ELSFP will be within specifications defined by the vendor.",zh:"Page 1Ah 地址 132–135 通告每 lane 可工作的最大与最小激光偏置电流。在自动电流控制（ACC）模式下，该字段向主机指示 ELSFP 能满足厂商规格的偏置控制范围。"},
+  numLanes:{page:9,quote:"Page 1Ah, Address 140 Bits 7 -1 advertises the number of lanes supported by the ELSFP. The host can infer the number of banks supported from this field. Page 1Ah, Address 140 Bit 0 advertises control mode mechanism used by the ELSFP.",zh:"Page 1Ah 地址 140 的位 7–1 通告 ELSFP 支持的 lane 数，主机可由此推断支持的 bank 数；地址 140 的位 0 通告 ELSFP 使用的控制模式机制。"},
+  ctrlMode:{page:9,quote:"Two control modes - automatic current control (ACC) or automatic power control (APC) are defined in this specification. In APC mode the ELSFP maintains constant optical output power level. In ACC mode the ELSFP regulates the drive current supplied to the laser diode.",zh:"本规范定义两种控制模式：自动电流控制（ACC）与自动功率控制（APC）。APC 模式下 ELSFP 维持恒定光输出功率；ACC 模式下 ELSFP 调节供给激光二极管的驱动电流。"},
+  modeBits:{page:16,quote:"140 0 ControlModeAPCACC ELSFP Control (ACC or APC) as implemented by supplier 0b: Automatic Current Control (ACC) implemented, 1b: Automatic Power Control (APC) implemented.",zh:"地址 140 位 0 为 ControlModeAPCACC：0b 表示实现的是自动电流控制（ACC），1b 表示实现的是自动功率控制（APC）。"},
+  maxOptPwr:{page:15,quote:"128-129 All MaxOpticalPower Maximum operatable ELSFP output power per lane encoded as U16 in increments of 10uW. Total range of 0mW to 655.35mW. In ACC mode, this register reports 0.",zh:"字节 128–129 MaxOpticalPower：每 lane 最大可工作输出功率，U16 编码、步进 10 µW，总范围 0–655.35 mW。在 ACC 模式下该寄存器上报 0。"},
+  maxBias:{page:16,quote:"132-133 All MaxLaserBias Maximum operatable laser current bias per lane encoded as U16 in increments of 100uA. Total range of 0A to 6.5535A. In APC mode, this register reports 0.",zh:"字节 132–133 MaxLaserBias：每 lane 最大可工作激光偏置电流，U16 编码、步进 100 µA，总范围 0–6.5535 A。在 APC 模式下该寄存器上报 0。"},
+
+  /* ---- 8.5 Lane Specific Thresholds ---- */
+  thresh:{page:9,quote:"Each monitored parameter has a corresponding high alarm, low alarm, high warning, and low warning threshold. The thresholds defined in this specification are applicable for all lanes. These factory-preset threshold values allow the user to determine when a particular value is outside of “normal” limits as determined by the ELSFP manufacturer.",zh:"每个被监视参数都有对应的高告警、低告警、高警告、低警告四个阈值。本规范定义的阈值适用于所有 lane。这些出厂预设阈值让用户能判断某个值是否超出了 ELSFP 厂商认定的「正常」范围。"},
+  threshAddr:{page:9,quote:"These values are stored in Page 1Ah Address 141 -156. The lane specific threshold registers are defined in Table 5.",zh:"这些值存放在 Page 1Ah 地址 141–156，lane 专用阈值寄存器定义见 Table 5。"},
+  threshVolts:{page:9,quote:"Note: Laser voltage monitor and module Icc current monitor do not have thresholds defined as these monitors are informational.",zh:"注：激光电压监视器与模块 Icc 电流监视器没有定义阈值，因为这两个监视器只是信息性的。"},
+  threshVendor:{page:9,quote:"The values reported in the Alarm and Warning Thresholds area may be typical values at some chosen nominal operating conditions and may be temperature compensated or otherwise adjusted when setting warning and/or alarm flags. Any compensation or adjustment is vendor specific and completely optional.",zh:"告警/警告阈值区上报的值可能是某个标称工况下的典型值，在置位警告/告警标志时可能做了温度补偿或其他调整。任何补偿或调整都是厂商专有的，且完全可选。"},
+
+  /* ---- 8.6 / 8.7 Alarms, Warnings, Masks ---- */
+  flagsLatched:{page:9,quote:"A set of alarm and warning flags are implemented. The flags are latched. These flags indicate when the various monitored parameters are above or below the thresholds. The alarm and warning flags are stored in Page 1Ah Address 186-193.",zh:"实现了一组告警与警告标志。这些标志是锁存的（latched），指示各被监视参数是否越过阈值。告警与警告标志存放在 Page 1Ah 地址 186–193。"},
+  flagTypes:{page:9,quote:"1) Alarm flags associated with lane bias current, lane output power. Alarm flags indicate conditions likely to be associated with a faulty link and cause for immediate action. 2) Warning flags associated with lane bias current, lane output power. Warning flags indicate conditions outside the normally guaranteed bounds but not necessarily causes of immediate failures.",zh:"两类标志：① 告警标志（与 lane 偏置电流、lane 输出光功率关联）——指示可能与链路故障相关、需立即处理的状态；② 警告标志（同样关联偏置电流与输出光功率）——指示超出正常保证范围但未必是立即失效的状态。"},
+  warnEOL:{page:9,quote:"Certain warning flags may also be defined by the manufacturer as end-of-life indicators (such as for higher-than-expected bias currents in a constant power control loop).",zh:"某些警告标志还可能被厂商定义为寿命终结指示器（例如恒功率控制环中偏置电流高于预期）。"},
+  masks:{page:9,quote:"A set of alarm and warning masks have been implemented. The host may control which specific alarm and warning flag is enabled. Lane specific alarm and warning masks are defined in Page 1Ah, 198-205. A value of 1 in the masking bits prevents the assertion o f the corresponding alarm and warning flag.",zh:"实现了一组告警与警告掩码，主机可控制哪些告警/警告标志被使能。lane 专用掩码定义在 Page 1Ah 地址 198–205，掩码位为 1 可阻止对应的告警或警告标志被置起。"},
+  maskDefault:{page:10,quote:"Masking bits are volatile and startup with all unmasked (masking bits = 0). The mask bits may be used to prevent continued assertion from ongoing conditions, which would otherwise continually reassert the corresponding alarm and warning flag.",zh:"掩码位是易失的，上电时全部未屏蔽（掩码位 = 0）。掩码位可用于防止持续存在的条件反复重新置位对应的告警与警告标志。"},
+
+  /* ---- 8.8 Save/Restore ---- */
+  saveRestore:{page:10,quote:"Hosts may wish to request that the ELSFP module save its configuration to non-volatile memory for later retrieval. To facilitate this, a save/restore feature is provided via registers 1Ah.184-185. This feature can be used to save specific information to non-volatile memory. The structure and access to non-volatile memory is implementation-specific and out of scope for this implementation agreement.",zh:"主机可能希望请求 ELSFP 模块把配置保存到非易失存储器以备日后取用。为此提供了经由寄存器 1Ah.184–185 的保存/恢复特性。非易失存储器的结构与访问方式是实现相关的，不在本实施协议范围内。"},
+  saveWhat:{page:10,quote:"• Lane controls; power and/or current, (Bytes 1Bh.128-183) • Masks for alarm and warning flags (Bytes 1Ah.198-211)",zh:"可保存/恢复的内容有两类：lane 控制量（功率和/或电流，字节 1Bh.128–183）；告警与警告标志的掩码（字节 1Ah.198–211）。"},
+  saveSlots:{page:10,quote:"To facilitate switching between different configuration settings, for each of these categories, two slots are available in which to store the data. The host may choose which slot to save to and which slot to restore from. In addition, a factory set is also provided to enable the host to return the module to its factory settings.",zh:"为便于在不同配置间切换，每一类都提供两个槽位存放数据，主机可选择存到哪个槽、从哪个槽恢复。此外还提供出厂设置，使主机能把模块恢复到出厂状态。"},
+  saveProc:{page:10,quote:"1) Read Byte 1Ah.185 and verify that a command is not currently in progress 2) Write the appropriate command to Byte 1Ah.184 3) Poll Byte 1Ah.185 until a command is no longer in progress, and a result is achieved. To avoid race conditions, the module must return the ‘command in progress’ value in Byte 1Ah.185 upon the next successful read request after a write to 1Ah.184.",zh:"使用流程：① 读字节 1Ah.185，确认没有命令正在执行；② 向字节 1Ah.184 写入相应命令；③ 轮询字节 1Ah.185，直到命令不再执行并得到结果。为避免竞态，模块在写 1Ah.184 后的下一次成功读请求中，必须在 1Ah.185 返回「命令执行中」值。"},
+  saveCode:{page:10,quote:"The host may check the return code from a ‘restore’ command to determine if valid data was present in the requested data slot. The ‘no relevant saved content’ code (04h) will be returned by the module if there is no valid data to restore.",zh:"主机可检查「恢复」命令的返回码，判断请求的数据槽中是否有有效数据。若没有有效数据可恢复，模块返回「无相关保存内容」码 04h。"},
+  saveNotBanked:{page:10,quote:"Note that Bytes 1Ah.184-185 are not in the banked section, therefore the save/restore applies to all lanes in all banks.",zh:"注意字节 1Ah.184–185 不在 banked 区段，因此保存/恢复对所有 bank 的所有 lane 都生效。"},
+
+  /* ---- 8.9 Control and Status Registers ---- */
+  laneEnable:{page:10,quote:"Table 9 defines the registers which are used to control each lane of the ELSFP via LaneEnable# bits. A byte (Page 1Ah:220) is reserved to allow the host to enable (1b), or disable (0b) each of the 8 lanes.",zh:"Table 9 定义了用 LaneEnable# 位控制 ELSFP 每个 lane 的寄存器。字节（Page 1Ah:220）保留给主机，用来使能（1b）或禁止（0b）8 个 lane 中的每一个。"},
+  laneState:{page:10,quote:"Once the host has enabled a lane there are 2 bits assigned for each lane so the host can read the status of the lane as is transitions from an OFF state (00b) through a Ramping/Transition [...] state (01b) until finally achieving and ON state (10b). When a lane is disabled the reverse status progression ensues. The status (11b) has been held in reserve to allow a future more complex lane state machine. These read only bit pairs are found in (Pages 1Ah:221-222) and match the 8 lane from the enable bits of (Page 1Ah:220).",zh:"主机使能某个 lane 后，每个 lane 分配 2 位状态位，主机可读出该 lane 从 OFF（00b）经 Ramping/Transition（01b）最终到 ON（10b）的状态迁移；禁用时反向进行。11b 保留给未来更复杂的 lane 状态机。这些只读位对位于 Page 1Ah:221–222，与 Page 1Ah:220 的 8 个使能位一一对应。"},
+  laneShared:{page:11,quote:"In the cases of comb lasers or power splitting of a laser into multiple lanes, enable/disable of a single lane may impact other lanes. ELSFP supplier to provide appropriate laser to lane mapping in these cases.",zh:"在梳状激光器或把一个激光分光到多个 lane 的情况下，禁止/使能单个 lane 可能影响其他 lane；此时由 ELSFP 供应商提供合适的激光到 lane 的映射。"},
+
+  /* ---- 8.10 Output Fiber Checked Flags ---- */
+  fiberCheck:{page:11,quote:"The purpose of these flags is to allow the host to indicate to the ELSFP module which fibers have been checked for continuity and are deemed safe for operation with the full range of output optical power.",zh:"这些标志的用途是让主机向 ELSFP 模块指明：哪些光纤已完成连续性检查、被认定可以在全范围输出光功率下安全工作。"},
+  checkLimit:{page:11,quote:"Therefore, prior to the host raising these flags to 1b, the ELSFP shall deliver fixed power as advertised in 1Ah:248 (OptCheckPowerSetpoint) in each lane of the fiber when the laser is ON. The maximum power per fiber core shall not exceed 15dBm while the flag is 0b. The ELSFP shall appropriately regulate the power per lane. Above this power level permanent damage may result when contamination is present in the optical path.",zh:"因此，在主机把这些标志置为 1b 之前，当激光处于 ON 时，ELSFP 必须在该光纤的每个 lane 上按 1Ah:248（OptCheckPowerSetpoint）通告的固定功率输出。标志为 0b 期间每芯最大功率不得超过 15 dBm，ELSFP 应适当调节每 lane 功率。超过该功率等级时，光路中存在污染会造成永久损伤。"},
+  checkDefaults:{page:11,quote:"These Flags are defaulted to 0b until the host sets them. The ELSFP module also resets them to default (0b) upon reset. The host is responsible to manage the fiber check process and set all flags accordingly. The flag can be set as 1b after the host has de termined that high power-operation is allowed.",zh:"这些标志默认为 0b 直到主机置位；模块复位时也会把它们复位为 0b。主机负责管理光纤检查流程并据此设置所有标志。主机判定可以高功率工作后即可把标志置 1b。"},
+  checkShared:{page:11,quote:"In the event that multiple lanes are shared per fiber there may exist some redundant flags.",zh:"在多个 lane 共享一根光纤的情况下，可能存在一些冗余标志。"},
+
+  /* ---- 8.11 Monitors ---- */
+  monBiasAddr:{page:30,quote:"184-185 All BiasCurrentMonitor1 Monitor for laser bias current indexed lane n (n=1 to 8) in increments of 100 uA. Total possible range of 0 to 6.5535A. RO",zh:"1Bh 字节 184 起为 BiasCurrentMonitor1–8：索引 lane n 的偏置电流监视，每 lane 2 字节，步进 100 µA，量程 0–6.5535 A，只读。"},
+  monOptAddr:{page:31,quote:"200-201 All OptPowerMonitor1 Monitor for lane optical power for indexed lane n (n=1 to 8) in increments of 10 uW. Total possible range of 0 to 6.5535W. RO",zh:"1Bh 字节 200 起为 OptPowerMonitor1–8：索引 lane n 的光功率监视，每 lane 2 字节，步进 10 µW，量程 0–6.5535 W，只读。"},
+  monVoltAddr:{page:31,quote:"232 All VoltageMonitor1 Monitor of laser voltage for indexed lane n (n-1 to 8) in increments of 15 mV for a full range from 0 to 3.825V RO",zh:"1Bh 字节 232–239 为 VoltageMonitor1–8：索引 lane n 的激光电压监视，每 lane 1 字节，步进 15 mV，量程 0–3.825 V，只读。"},
+  monIccAddr:{page:32,quote:"240-241 All ICCMonitor Monitor of ELSFP Module VCC Current, in increments of 200 uA, for a full range from 0 to 13.107A. If not supported, a value of 0000h will be reported. RO Opt",zh:"1Bh 字节 240–241 为 ICCMonitor：模块 Vcc 电流监视，步进 200 µA，量程 0–13.107 A；不支持时上报 0000h，为可选（Opt）寄存器。"},
+  monitors:{page:11,quote:"The monitored parameters are lane bias current, lane output power, lane laser voltage. Additionally, there is an optional monitoring of module Vcc current.",zh:"被监视参数为 lane 偏置电流、lane 输出光功率、lane 激光电压；另外还有可选的模块 Vcc 电流监视。"},
+  biasMon:{page:12,quote:"Measured lane bias current in Amps. Represented as a 16 -bit unsigned integer with the current defined as the full 16-bit value (0 – 65535) with LSB equal to 100 µA, yielding a total measurement range of 0 to 6.5535A. Accuracy is vendor specific.",zh:"测得的 lane 偏置电流，单位安培。用 16 位无符号整数表示，电流定义为完整的 16 位值（0–65535），LSB 等于 100 µA，总测量范围 0–6.5535 A。精度由厂商决定。"},
+  optMon:{page:12,quote:"Measured lane output power in mW. Represented as a 16 -bit unsigned integer with the power defined as the full 16-bit value (0 – 65535) with LSB equal to 10 µW, yielding a total measurement range of 0 to 6.5535 W (~ -40 to +38.16 dBm). Data is not valid when the ELSFP output is disabled.",zh:"测得的 lane 输出光功率，单位毫瓦。用 16 位无符号整数表示，功率定义为完整的 16 位值（0–65535），LSB 等于 10 µW，总测量范围 0–6.5535 W（约 −40 到 +38.16 dBm）。ELSFP 输出被禁用时该数据无效。"},
+  voltMon:{page:12,quote:"Internally measured laser voltage. Represented as a 16 -bit unsigned integer with the voltage defined as the full 16-bit value (0 – 65535) with LSB equal to 15 mV, yielding a total measurement range of 0 to +3.825 Volts.",zh:"内部测得的激光电压。用 16 位无符号整数表示，电压定义为完整的 16 位值（0–65535），LSB 等于 15 mV，总测量范围 0–+3.825 伏。"},
+  iccMon:{page:12,quote:"Internally measured module Vcc current. Represented as a 16-bit unsigned integer with the current defined as the full 16-bit value (0 – 65535) with LSB equal to 200 µA, yielding a total current range of 0 to +13.107A. This is an optional monitor.",zh:"内部测得的模块 Vcc 电流。用 16 位无符号整数表示，电流定义为完整的 16 位值（0–65535），LSB 等于 200 µA，总电流范围 0–+13.107 A。这是可选监视器。"},
+  multiByte:{page:12,quote:"the update of a multi -byte field by the ELSFP must not occur such that a partially updated multi-byte field can be transferred to the host. Also, the ELSFP module shall not update a multi -byte field within the structure during the transfer of that m ulti-byte field to the host, such that partially updated data would be transferred to the host.",zh:"ELSFP 更新多字节字段时，不得出现部分更新的多字节字段被传给主机的情况；在向主机传输某多字节字段的过程中，模块也不得更新该结构内的多字节字段以致传输出部分更新的数据。"},
+  accuracy:{page:12,quote:"Accuracy requirements for the monitored parameters are vendor and application dependent. The vendor’s datasheet should be consulted for more detail on the conditions under which the accuracy requirements are met.",zh:"被监视参数的精度要求取决于厂商与应用，具体精度达成条件应查阅厂商数据手册。"},
+
+  /* ---- 8.12 Module Faults ---- */
+  moduleFault:{page:12,quote:"ELSFP modules may notify faults that affect functionality to the host through the ModuleState global status bits. ModuleState is defined in LowMemory Address 3, Bits 3-1. ELSFP modules upon detecting a fault condition will transition to the Module Fault State as described in the Module State Machine (MSM) defined in CMIS.",zh:"ELSFP 模块可通过 ModuleState 全局状态位向主机通报影响功能的故障。ModuleState 定义在低位内存地址 3 的位 3–1。检测到故障条件时，ELSFP 模块会按 CMIS 的 MSM 转入 Module Fault 状态。"},
+  faultCause:{page:12,quote:"ELSFP modules may indicate the cause of the fault condition through the ModuleFaultCause register defined in LowMemory Address 41, Bits 7-0.",zh:"ELSFP 模块可通过低位内存地址 41 位 7–0 的 ModuleFaultCause 寄存器指示故障原因。"},
+
+  /* ---- Lane fault / warning codes (Table 2 / Table 3) ---- */
+  faultCodes:{page:13,quote:"0 No alarm detected 1 Automatic Power Control (APC) control loop failure 2 Automatic Current Control (ACC) control loop failure 3-8 Reserved for future standardization 9-15 Vendor specific fault",zh:"lane 故障码：0 无告警；1 APC 控制环失效；2 ACC 控制环失效；3–8 保留待标准化；9–15 厂商专有故障。"},
+  warnCodes:{page:14,quote:"0 No warning detected 1 Automatic Power Control (APC) control loop warning 2 Automatic Current Control (ACC) control loop warning 3-8 Reserved for future standardization 9-15 Vendor specific warning",zh:"lane 警告码：0 无警告；1 APC 控制环警告；2 ACC 控制环警告；3–8 保留待标准化；9–15 厂商专有警告。"},
+  summaryFault:{page:13,quote:"ELSFP modules shall indicate a summary of the lane faults defined in Page 1Ah, bytes 166-169. [...] These bits are all Boolean OR’d together to provide a summary fault reflected in the LaneSummaryFault bit. Note that this bit is not Latched or COR because the source alarms themselves are latched/COR.",zh:"ELSFP 模块应给出 Page 1Ah 字节 166–169 所定义 lane 故障的汇总。这些位全部布尔 OR 后反映到 LaneSummaryFault 位。注意该位本身不是锁存、也不是 COR（读后清），因为源告警本身才是锁存/COR 的。"},
+  summaryWarn:{page:13,quote:"Modules shall also indicate a summary of the lane warnings defined in Page 1Ah, bytes 174 -177. These bits are all Boolean OR’d together to provide a summary warning reflected in the LaneSummaryWarning bit. Note that this bit is not Latched or COR because t he source alarms themselves are latched/COR.",zh:"模块还应给出 Page 1Ah 字节 174–177 所定义 lane 警告的汇总，这些位全部布尔 OR 后反映到 LaneSummaryWarning 位。该位同样不是锁存、也不是 COR，因为源告警本身才是锁存/COR 的。"},
+  summaryBits:{page:17,quote:"165 0 Reserved Reserved RO 1 Reserved Reserved 2 LaneSummaryFault 1b: OR’ed lane faults 3 LaneSummaryWarning 1b: OR’ed lane warnings 4-7 Reserved Reserved",zh:"字节 165：位 2 为 LaneSummaryFault（各 lane 故障的 OR），位 3 为 LaneSummaryWarning（各 lane 警告的 OR），其余保留。"},
+
+  /* ---- Memory map layout (Figure 3) ---- */
+  layout:{page:15,quote:"All analog values are store in Big Endian order (MSB in lower address)",zh:"所有模拟量以大端（Big Endian）存放，MSB 在较低地址。"},
+  memMap:{page:15,quote:"Module Advertisements (Bytes 128-164) Module and lane alarms and warnings (Bytes 165-181) Laser setting and Save/Restore (Bytes 182-185) Banked Laser Alarms/Warnings/Faults (Bytes 186-219) Banked Laser Enable/Disable (Bytes 220-222) Banked Laser Output Fiber Check Flag (Byte 223) Banked Laser Additional Information (Bytes 224-255) Banked Laser Current/Optical Power Setpoints (Bytes 128-183) Banked Laser Current/Optical/Voltage Monitors (Bytes 128-183)",zh:"Page 1Ah 布局：模块通告 128–164；模块与 lane 告警/警告 165–181；激光设置与保存/恢复 182–185；分 bank 的 lane 告警/警告/故障 186–219；分 bank 的 lane 使能/禁止 220–222；分 bank 的输出光纤检查标志 字节 223；分 bank 的附加信息 224–255。Page 1Bh 布局：分 bank 的电流/光功率设定点 128–183；分 bank 的电流/光功率/电压监视器 128–183。"},
+  laneToFiber:{page:27,quote:"224 All LaneToFiberMapping1 Integer value maps indexed lane n (n=1 to 8) to fiber # on optical connector",zh:"字节 224 起为 LaneToFiberMapping1–8：以整数值把索引 lane n（n=1–8）映射到光连接器上的纤号。"},
+  laneFreq:{page:27,quote:"232-233 All LaneFreq1 Lane freq for indexed lane n (n=1 to 8) in increments of 5 GHz. Total possible range of 0 to 327.67Thz.",zh:"字节 232–233 起为 LaneFreq1–8：索引 lane n（n=1–8）的 lane 频率，步进 5 GHz，总范围 0–327.67 THz。"},
+  optCheckSetpoint:{page:28,quote:"248 All OptCheckPowerSetpoint Setpoint for lane optical power for every lane in increments of 1 mW. Total possible range of 0 to 255 mW, however the maximum power per fiber shall not exceed 15dBm",zh:"字节 248 为 OptCheckPowerSetpoint：所有 lane 的光功率设定点，步进 1 mW，总范围 0–255 mW，但每芯最大功率不得超过 15 dBm。"},
+  biasSetpoint:{page:29,quote:"134-135 All BiasCurrentSetpoint4 Setpoint for laser bias current indexed lane n (n=1 to 8) in increments of 100 uA. Total possible range of 0 to 6.5535A.",zh:"字节 134–135 起为 BiasCurrentSetpoint4：索引 lane n（n=1–8）的激光偏置电流设定点，步进 100 µA，总范围 0–6.5535 A。"},
+  optSetpoint:{page:29,quote:"144-145 All OptPowerSetpoint1 Setpoint for lane optical power for indexed lane n (n=1 to 8) in increments of 10 uW. Total possible range of 0 to 655.35 mW.",zh:"字节 144–145 起为 OptPowerSetpoint1：索引 lane n（n=1–8）的光功率设定点，步进 10 µW，总范围 0–655.35 mW。"},
+  iccReg:{page:32,quote:"240-241 All ICCMonitor Monitor of ELSFP Module VCC Current, in increments of 200 uA, for a full range from 0 to 13.107A. If not supported, a value of 0000h will be reported.",zh:"字节 240–241 为 ICCMonitor：ELSFP 模块 Vcc 电流监视，步进 200 µA，满量程 0–13.107 A。若不支持该功能，上报 0000h。"},
+  bigEndian:{page:15,quote:"All analog values are store in Big Endian order (MSB in lower address)",zh:"所有模拟量按大端序存储，MSB 位于较低地址。"},
+
+  /* ---- 10 Firmware Upgrade ---- */
+  cdb:{page:32,quote:"CMIS defined an optional Command Data Block (CDB) feature allows host-originated functional interactions between host and module beyond the basic CMIS core interactions, which allow only to READ or WRITE registers defined in the I2CMCI. CDB is best understood as an asymmetric message exchange mechanism for implementing a command and reply type of interaction. This proposal leverages the CDB message exchange format defined in CMIS for allowing hosts to update firmware in ELSFP Modules. CDB uses pages 0x9F to 0xAF.",zh:"CMIS 定义的可选 Command Data Block（CDB）特性，允许主机与模块之间做超出 CMIS 核心交互（核心只允许读写 I2C MCI 中定义的寄存器）的主机发起功能交互。CDB 可理解为一种非对称消息交换机制，用于实现命令-应答式交互。本提案借用 CMIS 的 CDB 消息交换格式，让主机能更新 ELSFP 模块固件。CDB 使用页 0x9F 到 0xAF。"},
+  cdbsPage:{page:7,quote:"9Fh CDB Command/Response with Local Payload CDB Instance 1 or 2 RW A0-AFh CDB EPL Extended Payload Segments CDB Instance 1 or 2 RW",zh:"Page 9Fh：带本地负载的 CDB 命令/应答，CDB 实例 1 或 2，读写。Page A0h–AFh：CDB EPL 扩展负载段，CDB 实例 1 或 2，读写。"},
+  fwCmds:{page:32,quote:"Specifically, the following CDB commands will be implemented for ELSFP modules for the purpose of updating ELSFP firmware. ELSFP vendors could potentially reuse CDB commands to update vendor specific calibration data through CDB. Table 9-14 in OIF-CMIS-05.2 lists the CDB Firmware Download commands to be supported by ELSFP modules.",zh:"具体而言，ELSFP 模块将实现以下 CDB 命令用于更新 ELSFP 固件；ELSFP 厂商也可能复用 CDB 命令通过 CDB 更新厂商专有的校准数据。OIF-CMIS-05.2 的 Table 9-14 列出了 ELSFP 模块应支持的 CDB 固件下载命令。"},
+  cmisRef:{page:32,quote:"1. [CMIS] Common Management Interface Specification Rev 5.3",zh:"规范性引用：CMIS 通用管理接口规范 Rev 5.3。"},
+  elsfpRef:{page:32,quote:"2. White Paper: Management of External Light Sources and Co-Packaged Optical Engines, OIF-MGT-Co-Packaging-ELSFP-01.0",zh:"参考性引用：白皮书《外置光源与共封装光引擎的管理》，OIF-MGT-Co-Packaging-ELSFP-01.0。"},
+  revHist:{page:6,quote:"OIF-ELSFP-CMIS-01.0 Sep 4th 2024 First publication.",zh:"修订历史：OIF-ELSFP-CMIS-01.0，2024 年 9 月 4 日，首次发布。"},
+  glossary:{page:33,quote:"COR: Clear-on-read. Usage defined in [1]. [...] Resource Module: Module that provides access to manage some resources, but not all of a typical optical transceiver. To be defined in [1] version 5.3. [...] APC: Automatic Power Control. As defined in Section 8.4 ACC: Automatic Current Control. As defined in Section 8.4",zh:"术语表：COR = 读后清（[1] 定义）；资源模块指只提供部分资源管理能力、而非典型光收发器全部能力的模块（[1] v5.3 定义）；APC = 自动功率控制、ACC = 自动电流控制（均见 8.4 节）。"},
+  laneDef:{page:33,quote:"Lane: A lane is a single wavelength on a single fiber core.",zh:"lane：单个纤芯上的单个波长。"}
+};
+
+/* ---------- 通用工具 ---------- */
+const $ = s => document.querySelector(s);
+function el(t,c,h){const n=document.createElement(t); if(c)n.className=c; if(h!=null)n.innerHTML=h; return n;}
+
+/* ---------- 场景 1：模块分类 ---------- */
+const CLASSES = [
+  {id:"none",t:"无交互式状态机",d:"完全被动、EEPROM 式。只存数据，不响应任何管理动作。"},
+  {id:"msm",t:"仅 MSM",d:"资源模块档位。只实现模块状态机，不跑数据通路或网络通路状态机。"},
+  {id:"msmD",t:"MSM + DPSM",d:"模块状态机加数据路径状态机。有数据通路的完整模块。"},
+  {id:"msmDN",t:"MSM + DPSM + NPSM",d:"再加网络路径状态机。功能最全的一档。"}
+];
+const ELSFP_CLASS = "msm";
+
+function renderCls(){
+  const g = $("#clsG"); g.innerHTML = "";
+  CLASSES.forEach((c,i)=>{
+    const y = 44 + i*40;
+    const on = c.id === ELSFP_CLASS;
+    const x = 20 + (on?14:0);
+    const w = 620 - (on?14:0);
+    g.innerHTML += '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="32" rx="4" fill="'+(on?"var(--blue)":"var(--panel)")+'" fill-opacity="'+(on?".16":"1")+'" stroke="'+(on?"var(--blue)":"var(--line)")+'" stroke-width="'+(on?1.8:1.2)+'"/>';
+    g.innerHTML += '<text x="'+(x+12)+'" y="'+(y+20)+'" font-size="10.5" fill="'+(on?"var(--ink)":"var(--muted)")+'" font-family="monospace">'+(on?"▶ ":"")+'BYTE 42 = '+(i+1)+'  '+c.t+'</text>';
+    if(on) g.innerHTML += '<text x="'+(x+w-8)+'" y="'+(y+20)+'" text-anchor="end" font-size="10" fill="var(--amber)" font-family="monospace">ELSFP HERE</text>';
+  });
+  g.innerHTML += '<text x="20" y="'+ (44+4*40+6) +'" font-size="10" fill="var(--muted)">ELSFP 资源模块只实现 CMIS v5.2 Figure 6-3 定义的 MSM。</text>';
+}
+
+$("#clsBtns").append(...CLASSES.map(c=>{
+  const b = el("button","",c.t);
+  b.dataset.v = c.id;
+  return b;
+}));
+(function(){
+  const bs = $("#clsBtns").querySelectorAll("button");
+  const out = $("#clsOut");
+  const upd = v => {
+    const c = CLASSES.find(x=>x.id===v);
+    bs.forEach(b=>{ b.setAttribute("aria-pressed", b.dataset.v===v); });
+    let html = "<p><b>字节 42 = "+(CLASSES.indexOf(c)+1)+"："+c.t+"</b></p><p>"+c.d+"</p>";
+    if(v === ELSFP_CLASS){
+      html += '<p class="note">ELSFP 就是这一档：激光不载信号，没有数据通路；低位内存的应用描述符会被通告成「无应用存在」。</p>';
+    } else {
+      html += '<p class="note">这不是 ELSFP 的档位——ELSFP 只跑 MSM。</p>';
+    }
+    out.innerHTML = html;
+  };
+  bs.forEach(b=>b.addEventListener("click",()=>upd(b.dataset.v)));
+  upd(ELSFP_CLASS);
+})();
+
+/* ---------- 场景 2：bank 机制 ---------- */
+const BANKED_1AH = [
+  {t:"128–164",d:"模块通告",bank:false},
+  {t:"165–181",d:"模块与 lane 告警/警告",bank:false},
+  {t:"182–185",d:"激光设置与保存/恢复",bank:false},
+  {t:"186–219",d:"lane 告警/警告/故障",bank:true},
+  {t:"220–222",d:"lane 使能/禁止",bank:true},
+  {t:"223",d:"输出光纤检查标志",bank:true},
+  {t:"224–255",d:"lane 附加信息",bank:true}
+];
+const BANKED_1BH = [
+  {t:"128–183",d:"偏置电流/光功率设定点",bank:true},
+  {t:"188–235",d:"电流/光功率/电压监视器",bank:true},
+  {t:"240–241",d:"模块 Vcc 电流监视器（可选）",bank:true}
+];
+
+function renderMap(){
+  const g1 = $("#m1ahG"); g1.innerHTML = "";
+  const g2 = $("#m1bhG"); g2.innerHTML = "";
+  let y = 58;
+  BANKED_1AH.forEach(b=>{
+    const h = 24;
+    g1.innerHTML += '<rect x="20" y="'+y+'" width="280" height="'+h+'" rx="3" fill="'+(b.bank?"var(--amber)":"var(--blue)")+'" fill-opacity="'+(b.bank?".14":".10")+'" stroke="'+(b.bank?"var(--amber)":"var(--blue)")+'" stroke-width="1.1"/>';
+    g1.innerHTML += '<text x="28" y="'+(y+16)+'" font-size="9.5" fill="var(--ink)" font-family="monospace">'+b.t+'  '+b.d+'</text>';
+    if(b.bank) g1.innerHTML += '<text x="292" y="'+(y+16)+'" text-anchor="end" font-size="9" fill="var(--amber)" font-family="monospace">BANKED</text>';
+    y += h + 2;
+  });
+  y = 58;
+  BANKED_1BH.forEach(b=>{
+    const h = 30;
+    g2.innerHTML += '<rect x="330" y="'+y+'" width="280" height="'+h+'" rx="3" fill="var(--amber)" fill-opacity=".14" stroke="var(--amber)" stroke-width="1.1"/>';
+    g2.innerHTML += '<text x="338" y="'+(y+19)+'" font-size="9.5" fill="var(--ink)" font-family="monospace">'+b.t+'  '+b.d+'</text>';
+    y += h + 2;
+  });
+}
+function drawBanks(){
+  const g = $("#bankG"); g.innerHTML = "";
+  for(let b=0;b<4;b++){
+    const x = 20 + b*160;
+    const y = 158;
+    g.innerHTML += '<rect x="'+x+'" y="'+y+'" width="146" height="42" rx="4" fill="var(--panel)" stroke="var(--line)" stroke-width="1.2"/>';
+    g.innerHTML += '<text x="'+(x+10)+'" y="'+(y+17)+'" font-size="10" fill="var(--ink)" font-family="monospace">BANK '+b+'</text>';
+    let tx = "";
+    for(let l=1;l<=8;l++){ const n=b*8+l; tx += (l<=8? "L"+n : ""); }
+    g.innerHTML += '<text x="'+(x+10)+'" y="'+(y+32)+'" font-size="9" fill="var(--muted)" font-family="monospace">LANES '+(b*8+1)+"–"+(b*8+8)+'</text>';
+  }
+  g.innerHTML += '<text x="20" y="180" font-size="9.5" fill="var(--muted)" font-family="monospace">…</text>';
+}
+function drawLanes(){
+  const g = $("#laneG"); g.innerHTML = "";
+  for(let i=0;i<16;i++){
+    const x = 20 + i*40;
+    const y = 224;
+    const bank = Math.floor(i/8);
+    g.innerHTML += '<rect x="'+x+'" y="'+y+'" width="34" height="18" rx="2" fill="var(--blue2)" fill-opacity=".22" stroke="var(--blue)" stroke-width="1.1"/>';
+    g.innerHTML += '<text x="'+(x+17)+'" y="'+(y+13)+'" text-anchor="middle" font-size="9" fill="var(--ink)" font-family="monospace">L'+(i+1)+'</text>';
+  }
+  g.innerHTML += '<text x="20" y="262" font-size="9.5" fill="var(--muted)" font-family="monospace">BANK 0 = L1–L8      BANK 1 = L9–L16</text>';
+  g.innerHTML += '<text x="20" y="278" font-size="9.5" fill="var(--muted)" font-family="monospace">主机切一次 bank select，读这一组 8 个 lane 的设定点与监视量</text>';
+}
+
+$("#bankBtns").append(el("button","","一个 bank = 8 个 lane"), el("button","","16 lane → 2 个 bank"), el("button","","哪些寄存器分 bank？"));
+(function(){
+  const bs = $("#bankBtns").querySelectorAll("button");
+  const out = $("#bankOut");
+  const upd = i => {
+    bs.forEach(b=>b.setAttribute("aria-pressed", +b.dataset.i===i));
+    let html = "";
+    if(i===0){
+      html = "<p><b>每个 bank 代表 8 个 lane 的一组。</b>主机通过写低位内存字节 126（bank select）来切换当前访问哪一组，再按字节 127（page select）选页。</p><p>所以 8 lane 的模块只有 1 个 bank；16 lane 有 2 个；32 lane 有 4 个。</p>";
+    } else if(i===1){
+      html = "<p><b>16 个 lane → 2 个 bank。</b>主机要拿到全部 lane 的状态，就得把 bank select 从 0 切到 1 再读一遍。lane 数是从 1Ah 字节 140 位 7–1 读出来的，主机据此推算 bank 数。</p>";
+    } else {
+      html = "<p><b>分 bank 的是：</b>Page 1Ah 的字节 186–255，以及 Page 1Bh 的全部。</p><p><b>不分 bank 的是：</b>Page 1Ah 的字节 128–185——无论切到哪个 bank，这些寄存器的内容和相关动作都一样。</p>";
+    }
+    out.innerHTML = html;
+  };
+  bs.forEach((b,i)=>{b.dataset.i=i; b.addEventListener("click",()=>upd(i));});
+  upd(0);
+})();
+
+/* ---------- 场景 3：控制模式 ---------- */
+const MODES = {
+  acc:{k:"ACC",n:"自动电流控制",d:"ELSFP 调节供给激光二极管的<strong>驱动电流</strong>，光功率是结果。主机写的是偏置电流设定点。",
+       adv:"偏置范围",advNote:"MaxLaserBias / MinLaserBias 有效（132–135）；功率字段（128–131）上报 0。",
+       sp:"BiasCurrentSetpoint",spNote:"1Bh 128–143，步进 100 µA，0–6.5535 A"},
+  apc:{k:"APC",n:"自动功率控制",d:"ELSFP 维持<strong>恒定光输出功率</strong>，电流是结果。主机写的是光功率设定点。",
+       adv:"功率范围",advNote:"MaxOpticalPower / MinOpticalPower 有效（128–131）；偏置字段（132–135）上报 0。",
+       sp:"OptPowerSetpoint",spNote:"1Bh 144–159，步进 10 µW，0–655.35 mW"}
+};
+$("#modeBtns").append(el("button","","ACC 自动电流控制"), el("button","","APC 自动功率控制"));
+(function(){
+  const bs = $("#modeBtns").querySelectorAll("button");
+  const out = $("#modeOut");
+  const upd = v => {
+    const m = MODES[v];
+    bs.forEach((b,i)=>b.setAttribute("aria-pressed",(i===0)===(v==="acc")));
+    out.innerHTML = "<p><b>"+m.k+"（"+m.n+"）</b>："+m.d+"</p>"
+      + "<div class='kv'><dt>可用的能力通告</dt><dd>"+m.adv+"</dd>"
+      + "<dt>另一模式读到什么</dt><dd>"+m.advNote+"</dd>"
+      + "<dt>主机写的设定点</dt><dd>"+m.sp+"</dd><dd>"+m.spNote+"</dd></div>"
+      + "<p class='note'>地址 140 位 0 = ControlModeAPCACC：0b 是 ACC，1b 是 APC。主机先读这一位，才知道该写哪一类设定点。</p>";
+  };
+  bs.forEach((b,i)=>b.addEventListener("click",()=>upd(i===0?"acc":"apc")));
+  upd("acc");
+})();
+
+/* ---------- 场景 4：阈值类型 ---------- */
+const THRESH = {
+  ha:{t:"高告警 High Alarm",d:"实测值越过<strong>高告警</strong>阈值。指示可能与链路故障相关，需立即处理。"},
+  la:{t:"低告警 Low Alarm",d:"实测值越过<strong>低告警</strong>阈值。同样属于需要立即处理的一类。"},
+  hw:{t:"高警告 High Warning",d:"实测值越过<strong>高警告</strong>阈值。超出正常保证范围，但未必是立即失效。"},
+  lw:{t:"低警告 Low Warning",d:"实测值越过<strong>低警告</strong>阈值。也可能被厂商用作寿命终结指示器。"}
+};
+$("#thrBtns").append(...Object.keys(THRESH).map(k=>{const b=el("button","",THRESH[k].t);b.dataset.v=k;return b;}));
+(function(){
+  const bs = $("#thrBtns").querySelectorAll("button");
+  const out = $("#thrOut");
+  const upd = v => {
+    const c = THRESH[v];
+    bs.forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===v));
+    out.innerHTML = "<p><b>"+c.t+"</b>："+c.d+"</p>"
+      + "<p>四个阈值（高告警/低告警/高警告/低警告）存在 Page 1Ah 地址 <b>141–156</b>，对所有 lane 适用。它们是出厂预设值，厂商之间会不同；上报值可能是标称工况下的典型值并做了温度补偿——补偿是厂商专有且完全可选的。</p>"
+      + "<p class='note'>激光电压与模块 Icc 电流<strong>没有阈值</strong>——这两个监视器只是信息性的。</p>";
+  };
+  bs.forEach(b=>b.addEventListener("click",()=>upd(b.dataset.v)));
+  upd("ha");
+})();
+
+function renderSum(){
+  const g = $("#sumG"); g.innerHTML = "";
+  // source bits
+  const src = [
+    {x:30,y:44,w:150,t:"1Ah 166–169",d:"FaultFlagLane1–24",c:"var(--warn)"},
+    {x:30,y:92,w:150,t:"1Ah 174–177",d:"WarnFlagLane1–24",c:"var(--amber)"}
+  ];
+  src.forEach(s=>{
+    g.innerHTML += '<rect x="'+s.x+'" y="'+s.y+'" width="'+s.w+'" height="36" rx="3" fill="'+s.c+'" fill-opacity=".12" stroke="'+s.c+'" stroke-width="1.2"/>';
+    g.innerHTML += '<text x="'+(s.x+10)+'" y="'+(s.y+16)+'" font-size="9.5" fill="var(--ink)" font-family="monospace">'+s.t+'</text>';
+    g.innerHTML += '<text x="'+(s.x+10)+'" y="'+(s.y+29)+'" font-size="9" fill="var(--muted)" font-family="monospace">'+s.d+'</text>';
+  });
+  // OR gates
+  g.innerHTML += '<path d="M182 62 L212 62 L212 84 L236 84" fill="none" stroke="var(--warn)" stroke-width="1.3"/>';
+  g.innerHTML += '<path d="M182 110 L212 110 L212 88 L236 88" fill="none" stroke="var(--amber)" stroke-width="1.3"/>';
+  g.innerHTML += '<circle cx="248" cy="86" r="17" fill="none" stroke="var(--blue)" stroke-width="1.5"/>';
+  g.innerHTML += '<text x="248" y="90" text-anchor="middle" font-size="11" fill="var(--blue)" font-family="monospace">OR</text>';
+  // summary
+  g.innerHTML += '<path d="M265 86 L300 86" stroke="var(--blue)" stroke-width="1.4"/>';
+  g.innerHTML += '<rect x="304" y="52" width="200" height="70" rx="3" fill="var(--blue)" fill-opacity=".10" stroke="var(--blue)" stroke-width="1.4"/>';
+  g.innerHTML += '<text x="314" y="72" font-size="10" fill="var(--ink)" font-family="monospace">1Ah BYTE 165</text>';
+  g.innerHTML += '<text x="314" y="88" font-size="9.5" fill="var(--muted)" font-family="monospace">BIT 2  LaneSummaryFault</text>';
+  g.innerHTML += '<text x="314" y="102" font-size="9.5" fill="var(--muted)" font-family="monospace">BIT 3  LaneSummaryWarning</text>';
+  g.innerHTML += '<text x="314" y="115" font-size="9" fill="var(--muted)" font-family="monospace">NOT LATCHED · NOT COR</text>';
+  // mask row
+  g.innerHTML += '<rect x="20" y="150" width="200" height="34" rx="3" fill="var(--panel)" stroke="var(--line)" stroke-width="1.2"/>';
+  g.innerHTML += '<text x="30" y="164" font-size="9.5" fill="var(--ink)" font-family="monospace">1Ah 198–205  MASKS</text>';
+  g.innerHTML += '<text x="30" y="177" font-size="9" fill="var(--muted)" font-family="monospace">1 = 阻止对应标志置位</text>';
+  g.innerHTML += '<rect x="240" y="150" width="200" height="34" rx="3" fill="var(--panel)" stroke="var(--line)" stroke-width="1.2"/>';
+  g.innerHTML += '<text x="250" y="164" font-size="9.5" fill="var(--ink)" font-family="monospace">1Ah 186–193  FLAGS</text>';
+  g.innerHTML += '<text x="250" y="177" font-size="9" fill="var(--muted)" font-family="monospace">LATCHED · 需主动读走</text>';
+  g.innerHTML += '<path d="M120 150 L120 134" stroke="var(--muted)" stroke-width="1.2"/>';
+  g.innerHTML += '<path d="M340 150 L340 128" stroke="var(--muted)" stroke-width="1.2"/>';
+  g.innerHTML += '<text x="460" y="162" font-size="9.5" fill="var(--muted)" font-family="monospace">掩码位易失，上电全部未屏蔽</text>';
+  g.innerHTML += '<text x="460" y="177" font-size="9.5" fill="var(--muted)" font-family="monospace">（= 0）</text>';
+}
+
+/* ---------- 场景 5：lane 状态机 ---------- */
+const STATES = {
+  "00":{t:"OFF 关",d:"lane 输出关闭。主机刚写 0、或刚被禁止。"},
+  "01":{t:"Ramping 爬升中",d:"输出正在向目标值过渡。主机应轮询等待，不要急着下结论。"},
+  "10":{t:"ON 开",d:"lane 达到目标并稳定输出。"},
+  "11":{t:"保留",d:"<strong>11b 被保留</strong>，留给未来更复杂的 lane 状态机，当前规范没有定义其含义。"}
+};
+$("#stBtns").append(el("button","","00b 关"), el("button","","01b 爬升"), el("button","","10b 开"), el("button","","11b 保留"));
+(function(){
+  const bs = $("#stBtns").querySelectorAll("button");
+  const out = $("#stOut");
+  const upd = v => {
+    const c = STATES[v];
+    bs.forEach(b=>b.setAttribute("aria-pressed",b.textContent.startsWith(v)));
+    let html = "<p><b>"+c.t+"</b>："+c.d+"</p>";
+    if(v==="00"||v==="01"||v==="10"){
+      html += '<div class="btnrow" id="stNext"></div><div id="stFlow"></div>';
+    }
+    out.innerHTML = html;
+    if(v!=="11"){
+      const order = ["00","01","10"];
+      const nx = order[(order.indexOf(v)+1)%3];
+      const nb = el("button","","下一步 →");
+      nb.addEventListener("click",()=>upd(nx));
+      $("#stNext",out).append(nb);
+      const f = $("#stFlow",out);
+      f.innerHTML = '<div class="btnrow" style="margin-top:10px">'
+        + order.map(k=>'<button data-k="'+k+'" style="font-family:ui-monospace,monospace">'+k+'b '+STATES[k].t.split(" ")[0]+'</button>').join("")
+        + '</div>';
+      f.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>upd(b.dataset.k)));
+    }
+  };
+  bs.forEach((b,i)=>b.addEventListener("click",()=>upd(["00","01","10","11"][i])));
+  upd("00");
+})();
+
+/* ---------- 场景 6：光纤检查标志 ---------- */
+const FC = {
+  "0":{flag:"0b",t:"未检查（默认）",c:"var(--amber)",d:"激光 ON 时，ELSFP 按 1Ah:248（OptCheckPowerSetpoint）输出<strong>固定功率</strong>，并自行调节每 lane 功率。<strong>每芯最大功率不得超过 15 dBm</strong>。",
+       host:"主机还没确认这根光纤的连续性。模块复位后也会把标志打回 0b。"},
+  "1":{flag:"1b",t:"已检查",c:"var(--ok)",d:"主机已确认光纤另一端收到了预期光功率，判定该光纤连续性良好。<strong>该光纤上允许全范围输出光功率</strong>。",
+       host:"判定依据可以是估算 ELSFP 到 OE 路径的可接受插入损耗。"}
+};
+$("#fcBtns").append(el("button","","标志 = 0b（默认）"), el("button","","标志 = 1b"));
+(function(){
+  const bs = $("#fcBtns").querySelectorAll("button");
+  const out = $("#fcOut");
+  const upd = v => {
+    const c = FC[v];
+    bs.forEach((b,i)=>b.setAttribute("aria-pressed",(i===0)===(v==="0")));
+    out.innerHTML = "<p><b>字节 223 bit "+(v==="0"?"0":"1")+" = "+c.flag+" — "+c.t+"</b></p>"
+      + "<p>"+c.d+"</p>"
+      + "<p class='note'>"+c.host+"</p>";
+  };
+  bs.forEach((b,i)=>b.addEventListener("click",()=>upd(i===0?"0":"1")));
+  upd("0");
+})();
+
+/* ---------- 场景 7：监视量换算 ---------- */
+const MON = {
+  bias:{n:"lane 偏置电流",unit:"A",lsb:"100 µA",raw:"0 – 65535",fs:"0 – 6.5535 A",mul:1e-4,dec:4,note:"精度由厂商决定。"},
+  opt:{n:"lane 输出光功率",unit:"mW",lsb:"10 µW",raw:"0 – 65535",fs:"0 – 655.35 mW（按 LSB 推算）",mul:1e-2,dec:2,note:"输出被禁用时数据无效。"},
+  volt:{n:"激光电压",unit:"V",lsb:"15 mV",raw:"0 – 65535",fs:"0 – 3.825 V",mul:1e-3,dec:3,note:"内部测量。"},
+  icc:{n:"模块 Vcc 电流",unit:"A",lsb:"200 µA",raw:"0 – 65535",fs:"0 – 13.107 A",mul:1e-4,dec:4,note:"可选；不支持时上报 0000h。"}
+};
+$("#rawBtns").append(...Object.keys(MON).map(k=>{const b=el("button","",MON[k].n);b.dataset.v=k;return b;}));
+(function(){
+  const bs = $("#rawBtns").querySelectorAll("button");
+  const out = $("#rawOut");
+  const upd = v => {
+    const m = MON[v];
+    bs.forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===v));
+    const inp = el("input");
+    inp.type="range"; inp.min="0"; inp.max="65535"; inp.value="30000";
+    inp.style.width="100%"; inp.style.marginTop="8px";
+    const lab = el("p"); lab.className="kv";
+    const readout = ()=>{
+      const raw = +inp.value;
+      const val = raw*m.mul;
+      lab.innerHTML = "<dt>主机读到</dt><dd>"+raw+" <span class='muted'>(U16)</span></dd>"
+        + "<dt>实际值</dt><dd><b>"+val.toFixed(m.dec)+" "+m.unit+"</b></dd>"
+        + "<dt>换算</dt><dd>"+raw+" × "+m.lsb+"</dd>"
+        + "<dt>满量程</dt><dd>"+m.fs+"</dd>";
+    };
+    inp.addEventListener("input",readout);
+    out.innerHTML = "";
+    const wrap = el("div");
+    wrap.innerHTML = "<p><b>"+m.n+"</b> — 16 位无符号整数，LSB = "+m.lsb+"。"+m.note+"</p>";
+    wrap.appendChild(inp);
+    wrap.appendChild(lab);
+    out.appendChild(wrap);
+    readout();
+  };
+  bs.forEach(b=>b.addEventListener("click",()=>upd(b.dataset.v)));
+  upd("bias");
+})();
+
+/* ---------- 通用：角标弹窗 ---------- */
+function openCite(id){
+  const s = SOURCES[id]; if(!s) return;
+  $("#popPg").textContent = "OIF-ELSFP-CMIS-01.0 · 第 " + s.page + " 页";
+  $("#popQ").textContent = s.quote;
+  $("#popZ").innerHTML = s.zh;
+  $("#pop").classList.add("on");
+}
+document.addEventListener("click", e=>{
+  const c = e.target.closest("sup.cite");
+  if(c){ openCite(c.dataset.cite); e.preventDefault(); return; }
+  if(e.target.id === "popClose" || e.target.id === "pop"){ $("#pop").classList.remove("on"); }
+});
+document.addEventListener("keydown", e=>{
+  if(e.key === "Escape"){ $("#pop").classList.remove("on"); }
+});
+
+/* ---------- 通用：先猜再看 ---------- */
+function guess(btnHost, outHost, opts, answerHtml, citeId){
+  const host = typeof btnHost==="string" ? $(btnHost) : btnHost;
+  const out = typeof outHost==="string" ? $(outHost) : outHost;
+  host.append(...opts.map((o,i)=>{
+    const b = el("button","",o);
+    b.addEventListener("click",()=>{
+      host.querySelectorAll("button").forEach(x=>{x.disabled=true; x.setAttribute("aria-pressed", x.textContent===o);});
+      out.hidden = false;
+      out.innerHTML = answerHtml + (citeId? ' <sup class="cite" data-cite="'+citeId+'"></sup>' : "");
+    });
+    return b;
+  }));
+}
+
+/* ---------- 通用：读者设置 ---------- */
+const motionOK = () => !matchMedia("(prefers-reduced-motion: reduce)").matches;
+const store = {get(k){try{return localStorage.getItem(k);}catch{return null;}}, set(k,v){try{localStorage.setItem(k,v);}catch{}}};
+
+/* ---------- 回到原处 ---------- */
+const backStack = [];
+function jumpTo(id){
+  backStack.push(scrollY);
+  history.pushState({y:scrollY},"");
+  document.getElementById(id).scrollIntoView({behavior: motionOK()?"smooth":"auto"});
+  $("#backBtn").style.display = "inline-block";
+  $("#backBtn").textContent = "↑ 回到刚才的位置";
+}
+document.addEventListener("click", e=>{
+  const a = e.target.closest("a[href^='#']");
+  if(a){ const id = a.getAttribute("href").slice(1); if(document.getElementById(id)){ e.preventDefault(); jumpTo(id); } }
+});
+$("#backBtn").addEventListener("click", ()=>{
+  const y = backStack.pop();
+  if(y===undefined) return;
+  scrollTo({top:y, behavior: motionOK()?"smooth":"auto"});
+});
+window.addEventListener("popstate", e=>{ if(e.state && e.state.y!=null) scrollTo({top:e.state.y, behavior:"auto"}); });
+
+/* ---------- 阅读进度 ---------- */
+function updateProg(){
+  const h = document.body.scrollHeight - innerHeight;
+  const p = h>0 ? Math.min(100, Math.round(scrollY/h*100)) : 0;
+  $("#prog").textContent = p + "%";
+}
+addEventListener("scroll", updateProg, {passive:true});
+updateProg();
+
+/* ---------- 主题 / 字号 ---------- */
+function setTheme(t){ document.documentElement.dataset.theme = t; store.set("elsfp-cmis-theme", t); }
+const savedT = store.get("elsfp-cmis-theme");
+setTheme(savedT || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
+$("#theme").addEventListener("click",()=> setTheme(document.documentElement.dataset.theme==="dark"?"light":"dark"));
+let fs = +(store.get("elsfp-cmis-fs") || 16);
+function setFS(v){ fs = Math.max(14, Math.min(21, v)); document.documentElement.style.setProperty("--fs", fs+"px");
+  document.body.style.fontSize = fs+"px"; store.set("elsfp-cmis-fs", fs); }
+setFS(fs);
+$("#fsUp").addEventListener("click",()=>setFS(fs+1));
+$("#fsDown").addEventListener("click",()=>setFS(fs-1));
+
+/* ---------- 键盘：左右切场景 ---------- */
+const scenes = [...document.querySelectorAll("[data-scene]")];
+document.addEventListener("keydown", e=>{
+  if(e.target.matches("input,textarea")) return;
+  if(e.key!=="ArrowLeft" && e.key!=="ArrowRight") return;
+  const i = scenes.findIndex(s=>{ const r=s.getBoundingClientRect(); return r.top<=80 && r.bottom>80; });
+  const j = e.key==="ArrowRight" ? Math.min(scenes.length-1, i+1) : Math.max(0, i-1);
+  if(scenes[j]){ e.preventDefault(); jumpTo(scenes[j].id); }
+});
+
+/* ---------- 猜一猜：具体题 ---------- */
+guess("#g2", "#g2out", ["1 个 bank","2 个 bank","4 个 bank","不用 bank，直接全读"],
+  "<b>2 个 bank。</b>每个 bank 覆盖 8 个 lane，16 个 lane 就是 2 组。主机切一次 bank select（低位内存字节 126）读一组，再切到下一组读另一组。",
+  "bankSelect");
+
+guess("#g4", "#g4out", ["是，它是 latched","是，它是 COR","都不是，它只是实时 OR"],
+  "<b>都不是。</b>LaneSummaryFault 只是各 lane 故障位的实时布尔 OR，本身不锁存、也不是读后清——因为源告警标志本身才是 latched / COR 的。",
+  "summaryFault");
+
+guess("#g5", "#g5out", ["输出关着","爬升中","输出开着","保留，未定义"],
+  "<b>保留，未定义。</b><code>11b</code> 被留着给未来更复杂的 lane 状态机，当前规范没有给它的含义。",
+  "laneState");
+
+guess("#g6", "#g6out", ["10 dBm","15 dBm","24.5 dBm","26 dBm"],
+  "<b>15 dBm。</b>光纤检查标志为 0b 期间，ELSFP 每芯输出不得超过 15 dBm；超过该等级时若光路存在污染会造成永久损伤。",
+  "checkLimit");
+
+/* ---------- 初始化 ---------- */
+renderCls();
+renderMap();
+drawBanks();
+drawLanes();
+renderSum();
+</script>
+</body>
+</html>

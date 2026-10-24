@@ -1,0 +1,1657 @@
+
+===== PAGE 1 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   1 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Implementation Agreement for External Laser Small 
+Form Factor Pluggable (ELSFP) CMIS  
+ 
+ 
+OIF-ELSFP-CMIS-01.0 
+ 
+ 
+September 4, 2024 
+ 
+ 
+
+===== PAGE 2 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   2 
+ 
+ 
+ 
+Implementation Agreement created and approved 
+OIF 
+www.oiforum.com 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+The OIF is an international non profit organization with over 150 member companies, including the world’s 
+leading carriers and vendors. Being an industry group uniting representatives of the data and optical worlds, 
+OIF’s purpose is to accelerate the deployment of interoperable, cost-effective and robust optical internetworks 
+and their associated technologies. Optical internetworks are data networks composed of routers and data 
+switches interconnected by optical networking elements. 
+With the goal of promoting worldwide compatibility of optical internetworking products, the OIF actively 
+supports and extends the work of national and international standards bodies.  Working relationships or formal 
+liaisons have been established with EA, IEEE 802.3, INCITS T11, Infiniband, IPEC, ITU SG-15, PCI-SIG, SNIA SFF. 
+For additional information contact: 
+OIF 
+39221 Paseo Padre Pkwy, Suite J 
+Fremont, CA 94538 USA 
++1.510.392.4903 F info@oiforum.com 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+===== PAGE 3 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   3 
+ 
+Working Group: Physical and Link Layer (PLL) Working Group 
+ 
+TITLE: Implementation Agreement for External Laser Small Form Factor  Pluggable (ELSFP) CMIS 
+ 
+ 
+SOURCE:  TECHNICAL EDITOR   WORKING GROUP CHAIR 
+  Todd Rope    David R. Stauffer, Ph.D.   
+  Marvell     Kandou Bus, SA 
+  5488 Marvell Lane   QI-I    
+  Santa Clara, CA 95054   1015 Lausanne, Switzerland 
+Phone: +1.408.222.2500   Phone: +1.802.316.0808 
+Email: trope@marvell.com  Email: david@kandou.com  
+ 
+PLL WORKING GROUP – Management Co-VICE CHAIRs 
+  Ian Alderdice    Gary Nicholl   
+  Ciena     Cisco Systems 
+  385 Terry Fox Drive                  3000 Innovation Drive 
+  Ottawa, ON K2K 0L1, Canada  Ottawa, ON K2K 3J9, Canada 
+Phone: +1-613-670-2523   Phone: +1-613-254-3535 
+Email: ialderdi@ciena.com  Email: gnicholl@cisco.com  
+ABSTRACT: Implementation Agreement created by the Optical Internetworking Forum for the MIS of External 
+Laser Small From Pluggable Modules.  The project start was approved at the Q 3 Technical Meeting, August 2021 
+(Virtual). 
+ 
+Notice: This Technical Document has been created by the Optical Internetworking Forum (OIF).  This document is offered to the OIF 
+Membership solely as a basis for agreement and is not a binding proposal on the companies listed as resources above. The OIF reserves the 
+rights to at any time to add, amend, or withdraw statements contained herein. Nothing in this document is in any way binding on the OIF or any 
+of its members. 
+The user's attention is called to the possibility that implementation of the OIF implementation agreement contained herein may require the use 
+of inventions covered by the patent rights held by third parties. By publication of this OIF implementation agreement, the OIF makes no 
+representation or warranty whatsoever, whether expressed or implied, that implementation of the specification will not infringe any third party 
+rights, nor does the OIF make any representation or warranty whatsoever, whether expressed or implied, with respect to any claim that has 
+been or may be asserted by any third party, the validity of any patent rights related to any such claim, or the extent to which a license to use 
+any such rights may or may not be available or the terms hereof. 
+Copyright © 2024 Optical Internetworking Forum 
+This document and translations of it may be copied and furnished to others, and derivative works that comment on or otherwise explain it or 
+assist in its implementation may be prepared, copied, published and distributed, in whole or in part, without restriction other than the 
+following, (1) the above copyright notice and this paragraph must be included on all such copies and derivative works, and (2) this document 
+itself may not be modified in any way, such as by removing the copyright notice or references to the OIF, except as needed for the purpose of 
+developing OIF Implementation Agreements. 
+By downloading, copying, or using this document in any manner, the user consents to the terms and conditions of this notice.  Unless the terms 
+and conditions of this notice are breached by the user, the limited permissions granted above are perpetual and will not be revoked by the OIF 
+or its successors or assigns. 
+ 
+This document and the information contained herein is provided on an “AS IS” basis and THE OIF DISCLAIMS ALL WARRANTIES, EXPRESS OR 
+IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY RIGHTS OR 
+ANY IMPLIED WARRANTIES OF MERCHANTABILITY, TITLE OR FITNESS FOR A PARTICULAR PURPOSE. 
+===== PAGE 4 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   4 
+ 
+1 Table of Contents 
+ 
+1 TABLE OF CONTENTS ........................................................................................... 4 
+2 LIST OF FIGURES ................................................................................................... 5 
+3 LIST OF TABLES ..................................................................................................... 5 
+4 DOCUMENT REVISION HISTORY .......................................................................... 6 
+5 INTRODUCTION ...................................................................................................... 6 
+6 MANAGEMENT INTERFACE .................................................................................. 6 
+7 ELSFP RESOURCE MODULE DEFINITION ........................................................... 7 
+8 ELSFP IMPLEMENTATION NOTES ........................................................................ 7 
+8.1 Bank Select: ................................................................................................................................... 8 
+8.2 Lower Memory: ............................................................................................................................. 8 
+8.3 Page 2: Module and Lane Thresholds ........................................................................................... 8 
+8.4 Advertisement and Capabilities .................................................................................................... 8 
+8.5 Lane Specific Thresholds ............................................................................................................... 9 
+8.6 Alarms and Warning Flags............................................................................................................. 9 
+8.7 Alarms and Warning Masks .......................................................................................................... 9 
+8.8 Save/Restore Feature ................................................................................................................. 10 
+8.9 Control and Status Registers ....................................................................................................... 10 
+8.10 Output Fiber Checked Flags ........................................................................................................ 11 
+8.11 Lane specific Controls and Monitors (Bias Current, Output Power) ........................................... 11 
+8.12 Module Faults ............................................................................................................................. 12 
+8.13 Lane Frequency ........................................................................................................................... 12 
+8.14 Lane Faults and Warnings ........................................................................................................... 12 
+9 ELSFP MEMORY MAP - PAGE 1AH AND PAGE 1BH ......................................... 15 
+10 ELSFP MODULE FIRMWARE UPGRADE ......................................................... 32 
+11 REFERENCES .................................................................................................... 32 
+11.1 Normative references ................................................................................................................. 32 
+11.2 Informative references ............................................................................................................... 32 
+12 APPENDIX A: GLOSSARY ................................................................................ 33 
+13 APPENDIX B: OPEN ISSUES / CURRENT WORK ITEMS ............................... 33 
+===== PAGE 5 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   5 
+ 
+14 APPENDIX C: LIST OF COMPANIES BELONGING TO OIF WHEN DOCUMENT 
+IS APPROVED .............................................................................................................. 33 
+ 
+2 List of Figures 
+ 
+Figure 1 Lane Specific Fault Summary ........................................................................................................ 13 
+Figure 2 Lane Specific Warning Summary ................................................................................................... 14 
+Figure 3 ELSFP Memory Layout ................................................................................................................... 15 
+ 
+ 
+3 List of Tables 
+Table 1 Relevant Pages ................................................................................................................................. 7 
+Table 2 Lane Fault Codes ............................................................................................................................ 13 
+Table 3 Lane Warning Codes ....................................................................................................................... 14 
+Table 4 Module advertisements (Page 1Ah) ............................................................................................... 15 
+Table 5 Lane fault and warnings (Page 1Ah) ............................................................................................... 17 
+Table 6 Lane setting and saving and restoring factory/customer settings (Page 1Ah) .............................. 19 
+Table 7 Alarms/warnings values, alarm/warning codes and masks for set lane bank (Page 1Ah)............. 20 
+Table 8 Per lane enable/disable control and lane state for set lane bank (Page 1Ah) ............................... 26 
+Table 9 Per lane output fiber link checked flag for selected lane bank (Page 1Ah) ................................... 26 
+Table 10 Additional per lane information such as lane to fiber mapping and reference frequency for 8 
+lanes for set lane bank (Page 1Ah) ............................................................................................................. 27 
+Table 11 Current Optical power setpoints, if supported for selected bank.  (Page 1Bh) ........................... 28 
+Table 12 Current/optical/voltage monitors for selected bank. (Page 1Bh) ................................................ 30 
+ 
+===== PAGE 6 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   6 
+ 
+4 Document Revision History 
+ 
+Working Group: Physical and Link Layer (PLL) Working Group 
+ 
+ 
+SOURCE:  TECHNICAL EDITOR   WORKING GROUP CHAIR 
+  Todd Rope    David R. Stauffer, Ph.D.   
+  Marvell     Kandou Bus, SA 
+  5488 Marvell Lane   QI-I    
+  Santa Clara, CA 95054   1015 Lausanne, Switzerland 
+Phone: +1.408.222.2500   Phone: +1.802.316.0808 
+Email: trope@marvell.com  Email: david@kandou.com  
+ 
+DATE: September 4, 2024 
+ 
+ 
+Document Date Revisions/Comments 
+OIF-ELSFP-CMIS-01.0 Sep 4th 2024 First publication. 
+The OIF working documents which were used for 
+the development of this document are listed 
+below. 
+  
+oif2023.230.13  Editor's Draft CMIS for ELSFP IA  
+oif2023.249.13  Worklist for : IA for ELSFP 
+Pluggable CMIS  
+ 
+ 
+5 Introduction 
+This Implementation Agreement extends the Common Management Interface Specification [CMIS] 
+to allow management of External Laser Small Factor Pluggable [ELSFP] modules. This 
+Implementation Agreement will be referred to as ELSFP CMIS and this implementation agreement 
+is a partner document to CMIS.  
+ 
+6 Management Interface 
+The management interface for the ELSFP module referred to as ELSFP CMIS is a partner document 
+to CMIS. This implementation agreement is an extension of the memory map defined in CMIS 
+===== PAGE 7 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   7 
+ 
+which contains objects to control ELSFP modules. The communication protocol for ELSFP modules is 
+the two-wire interface as described in CMIS MCI defined in [1]-B.2. 
+ 
+7 ELSFP Resource Module Definition 
+CMIS v5.3 enables a class of modules like the ELSFP to utilize CMIS without using its full feature set. 
+Such modules are defined as resource modules. Two bytes are defined in low memory of the CMIS 
+memory map specific to resource modules.  
+Byte 42 of low memory indicates module classification. Module classification advertises which state 
+machine a resource module implements.  
+• No interactive state machines (i.e., fully passive EEPROM-style) 
+• MSM only (RESOURCE MODULES) 
+• MSM + DPSM 
+• MSM + DPSM + NPSM 
+An ELSFP resource module shall implement only the MSM (Module State Machine) defined in 
+Figure 6-3 of CMIS v5.2. 
+Byte 43 of low memory enumerates the IA supported for resource module. ELSFP shall implement 
+Page 1Ah/Page 1Bh as defined in Section 3 of the memory map.   
+8 ELSFP Implementation Notes 
+This section describes CMIS pages which shall be used by ELSFP modules. 
+  
+Table 1 Relevant Pages 
+Page # Description Data per 
+Bank 
+# Banks Type 
+n/a Lower Memory  n/a n/a RW 
+00h Administrative Information n/a n/a RO 
+01h Advertising n/a n/a  RO 
+02h Thresholds Information n/a n/a  RO 
+03h User NV RAM n/a n/a  RW 
+06h Unused n/a n/a n/a 
+07h Unused n/a n/a n/a 
+1Ah ELSFP Advertisements, Flags 8 lanes1 N2 RW 
+1Bh ELSFP Controls and Monitors 8 lanes N2 RW 
+===== PAGE 8 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   8 
+ 
+9Fh CDB Command/Response with Local Payload CDB 
+Instance 
+1 or 2 RW 
+A0-AFh CDB EPL Extended Payload Segments CDB 
+Instance 
+1 or 2 RW 
+1 Bytes 128-185 of page 1Ah are not banked, but bytes 186-255 are banked. See section 8.1. 
+2 N = number of lanes supported divided by 8. 
+ 
+8.1 Bank Select: 
+Bytes 186-255 of page 1Ah, and all of page 1Bh are indexed by the bank select in lower memory 
+Byte 126. Each bank represents a group of 8 lanes, using the same mapping as specified in [1]-
+8.1.2. For bytes 128-185 of page 1Ah the register content and any associated actions shall be the 
+same regardless of the bank select. 
+ 
+8.2 Lower Memory: 
+The module level monitors defined in lower memory shall be implemented in an ELSFP module. 
+Specifically, ELSFP modules shall report module temperature monitor (Byte 14 -15) and supply 
+voltage monitor (Byte 16-17). If the case that ELSFP modules have the capability to TEC current and 
+laser temperature, ELSFP shall utilize appropriate Aux monitor advertisements.   
+ELSFP modules are required to support the Module State Machine (MSM). Since there is no concept 
+of Data Path State Machine (DPSM) in an ELSFP module, the application descriptor advertising fields 
+in lower memory will be advertised to indicate no applications present.  
+ 
+8.3 Page 2: Module and Lane Thresholds 
+Page 2 in ELSFP modules will be used to specify thresholds for module level monitors only. Lane 
+related monitor thresholds will be specified in Page 1Ah/1Bh (Specified in later sections of this 
+document).    
+  
+8.4 Advertisement and Capabilities 
+The ELSFP module advertisements are defined in Page 1Ah, 128-140. The advertisements registers 
+are described in Table 5. 
+Page 1Ah, Address 128-131 advertises the maximum and minimum operatable output power per 
+lane. In Automatic power control mode (APC), this field is an indication to the host of the range of 
+power control where the ELSFP will be within specifications defined by the vendor.  
+Page 1Ah, Address 132-135 advertises the maximum and minimum operatable laser bias per lane. 
+In Automatic current control mode (ACC), this field is an indication to the host of the range of bias 
+control where the ELSFP will be within specifications defined by the vendor.  
+===== PAGE 9 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   9 
+ 
+Page 1Ah, Address 140 Bits 7 -1 advertises the number of lanes supported by the ELSFP. The host 
+can infer the number of banks supported from this field. Page 1Ah, Address 140 Bit 0 advertises 
+control mode mechanism used by the ELSFP.  
+Two control modes - automatic current control (ACC) or automatic power control (APC) are defined 
+in this specification. In APC mode the ELSFP maintains constant optical output power level. In ACC 
+mode the ELSFP regulates the drive current supplied to the laser diode.    
+    
+8.5 Lane Specific Thresholds 
+Each monitored parameter has a corresponding high alarm, low alarm, high warning, and low 
+warning threshold. The thresholds defined in this specification are applicable for all lanes. These 
+factory-preset threshold values allow the user to determine when a  particular value is outside of 
+“normal” limits as determined by the ELSFP manufacturer. It is assumed that these values will vary 
+with different implementations. These values are stored in Page 1Ah Address 141 -156. The lane 
+specific threshold registers are defined in Table 5.  
+The values reported in the Alarm and Warning Thresholds area may be typical values at some 
+chosen nominal operating conditions and may be temperature compensated or otherwise adjusted 
+when setting warning and/or alarm flags. Any compensation or adjustment is vendor specific and 
+completely optional. 
+Note: Laser voltage monitor and module Icc current monitor do not have thresholds defined as 
+these monitors are informational.   
+ 
+8.6 Alarms and Warning Flags 
+A set of alarm and warning flags are implemented. The flags are latched. These flags indicate when 
+the various monitored parameters are above or below the thresholds. The alarm and warning 
+flags are stored in Page 1Ah Address 186-193. The Alarm and Warning flags are described in Table 
+8.  
+Two flag types are defined:  
+1) Alarm flags associated with lane bias current, lane output power. Alarm flags indicate 
+conditions likely to be associated with a faulty link and cause for immediate action.  
+2) Warning flags associated with lane bias current, lane output power. Warning flags indicate 
+conditions outside the normally guaranteed bounds but not necessarily causes of immediate 
+failures. Certain warning flags may also be defined by the manufacturer as end-of-life indicators 
+(such as for higher-than-expected bias currents in a constant power control loop). 
+ 
+8.7 Alarms and Warning Masks 
+A set of alarm and warning masks have been implemented. The host may control which specific 
+alarm and warning flag is enabled. Lane specific alarm and warning masks are defined in Page 1Ah, 
+198-205. A value of 1 in the masking bits prevents the assertion o f the corresponding alarm and 
+warning flag.  
+===== PAGE 10 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   10 
+ 
+Masking bits are volatile and startup with all unmasked (masking bits = 0). 
+The mask bits may be used to prevent continued assertion from ongoing conditions, which would 
+otherwise continually reassert the corresponding alarm and warning flag. 
+8.8 Save/Restore Feature 
+Hosts may wish to request that the ELSFP module save its configuration to non-volatile memory 
+for later retrieval. To facilitate this, a save/restore feature is provided via registers 1Ah.184-185. 
+This feature can be used to save specific information to non-volatile memory. The structure and 
+access to non-volatile memory is implementation-specific and out of scope for this 
+implementation agreement. The registers related to save and restore feature are described in 
+Table 7.  
+Specifically, the following categories of information can be saved/restored: 
+• Lane controls; power and/or current, (Bytes 1Bh.128-183) 
+• Masks for alarm and warning flags (Bytes 1Ah.198-211) 
+ 
+To facilitate switching between different configuration settings, for each of these categories, two 
+slots are available in which to store the data. The host may choose which slot to save to and which 
+slot to restore from. In addition, a factory set is also  provided to enable the host to return the 
+module to its factory settings. 
+ 
+To use this feature, the host should execute the following procedure: 
+1) Read Byte 1Ah.185 and verify that a command is not currently in progress 
+2) Write the appropriate command to Byte 1Ah.184 
+3) Poll Byte 1Ah.185 until a command is no longer in progress, and a result is achieved. 
+To avoid race conditions, the module must return the ‘command in progress’ value in Byte 1Ah.185 
+upon the next successful read request after a write to 1Ah.184. 
+ 
+The host may check the return code from a ‘restore’ command to determine if valid data was 
+present in the requested data slot. The ‘no relevant saved content’ code (04h) will be returned by 
+the module if there is no valid data to restore. 
+ 
+Note that Bytes 1Ah.184-185 are not in the banked section, therefore the save/restore applies to 
+all lanes in all banks. 
+ 
+8.9 Control and Status Registers 
+Table 9 defines the registers which are used to control each lane of the ELSFP via LaneEnable# 
+bits. A byte (Page 1Ah:220) is reserved to allow the host to enable (1b), or disable (0b) each of the 
+8 lanes. Once the host has enabled a lane there are 2 bits assigned for each lane so the host can 
+read the status of the lane as is transitions from an OFF state (00b) through a Ramping/Transition 
+===== PAGE 11 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   11 
+ 
+state (01b) until finally achieving and ON state (10b). When a lane is disabled the reverse status 
+progression ensues. The status (11b) has been held in reserve to allow a future more complex 
+lane state machine. These read only bit pairs are found in (Pages 1Ah:221-222) and match the 8 
+lane from the enable bits of (Page 1Ah:220).  
+In the cases of comb lasers or power splitting of a laser into multiple lanes, enable/disable of a 
+single lane may impact other lanes. ELSFP supplier to provide appropriate laser to lane mapping in 
+these cases. 
+ 
+8.10 Output Fiber Checked Flags 
+Table 10 lists a bank of OutputFiberCheckedFlag# assigned on a per lane basis. In the event that 
+multiple lanes are shared per fiber there may exist some redundant flags. The purpose of these 
+flags is to allow the host to indicate to the ELSFP module which  fibers have been checked for 
+continuity and are deemed safe for operation with the full range of output optical power.  This 
+operation is implemented by a reading of optical power inside the optical engine and comparing it 
+to the expected optical power received in the lane of optical engine which the ELSFP supports. Until 
+this check is completed, there is a high likelihood that contamination within the optical path, or 
+potentially a discontinuity in the path from the ELSFP to the OE, would either permanently damage 
+the optical fibers, or ELSFP. Therefore, prior to the host raising these flags to 1b, the ELSFP shall 
+deliver fixed power as advertised in 1Ah:248 (OptCheckPowerSetpoint) in each lane of the fiber 
+when the laser is ON. The maximum power per fiber core shall not exceed 15dBm while the flag is 
+0b. The ELSFP shall appropriately regulate the power per lane. Above this power level permanent 
+damage may result when contamination is present in the optical path. This limit assumes common 
+single mode or polarization maintaining fiber dimensions and optical power densities and may need 
+to be revisited in the case of other specialty fiber conditions. 
+These Flags are defaulted to 0b until the host sets them. The ELSFP module also resets them to 
+default (0b) upon reset. The host is responsible to manage the fiber check process and set all flags 
+accordingly. The flag can be set as 1b after the host has de termined that high power-operation is 
+allowed.  The determination can be based on estimating an acceptable insertion loss for the ELSFP 
+to EO engine path.  
+ 
+8.11 Lane specific Controls and Monitors (Bias Current, Output Power)  
+The monitored parameters are lane bias current, lane output power, lane laser voltage. 
+Additionally, there is an optional monitoring of module Vcc current. Monitored parameters are 
+reported as 16-bit data fields with MSB reported first (Big -Endian format).  Table 12 and Table 13 
+lists the registers defined.  
+To guarantee coherency of the diagnostic monitoring data, the host is required to retrieve any 
+multi-byte fields from the diagnostic monitoring data structure (i.e., Tx Output Power MSB – byte 
+200, Tx Output Power LSB – byte 201) using a single two-byte read sequence on the I2C interface. 
+The ELSFP module is required to ensure that any multi-byte fields that are updated with diagnostic 
+monitoring data (i.e., Tx Output Power MSB – byte 200, Tx Output Power LSB – byte 201) must have 
+this update done in a fashion that guarantees coherency and consistency of the data. In other 
+===== PAGE 12 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   12 
+ 
+words, the update of a multi -byte field by the ELSFP must not occur such that a partially updated 
+multi-byte field can be transferred to the host. Also, the ELSFP module shall not update a multi -
+byte field within the structure during the transfer of that m ulti-byte field to the host, such that 
+partially updated data would be transferred to the host. 
+Accuracy requirements for the monitored parameters are vendor and application dependent. The 
+vendor’s datasheet should be consulted for more detail on the conditions under which the accuracy 
+requirements are met.  
+Measured lane bias current in Amps. Represented as a 16 -bit unsigned integer with the current 
+defined as the full 16-bit value (0 – 65535) with LSB equal to 100 µA, yielding a total measurement 
+range of 0 to 6.5535A. Accuracy is vendor specific.  
+Measured lane output power in mW. Represented as a 16 -bit unsigned integer with the power 
+defined as the full 16-bit value (0 – 65535) with LSB equal to 10 µW, yielding a total measurement 
+range of 0 to 6.5535 W (~ -40 to +38.16 dBm). Data is not valid when the ELSFP output is disabled. 
+Internally measured laser voltage. Represented as a 16 -bit unsigned integer with the voltage 
+defined as the full 16-bit value (0 – 65535) with LSB equal to 15 mV, yielding a total measurement 
+range of 0 to +3.825 Volts. 
+Internally measured module Vcc current. Represented as a 16-bit unsigned integer with the current 
+defined as the full 16-bit value (0 – 65535) with LSB equal to 200 µA, yielding a total current range 
+of 0 to +13.107A. This is an optional monitor. 
+ 
+8.12 Module Faults 
+ELSFP modules may notify faults that affect functionality to the host through the ModuleState 
+global status bits. ModuleState is defined in LowMemory Address 3, Bits 3-1. ELSFP modules upon 
+detecting a fault condition will transition to the Module Fault State as described in the Module 
+State Machine (MSM) defined in CMIS. It is left to the module implementation to provide a 
+recommended course of action upon detection of a module fault. ELSFP modules may indicate the 
+cause of the fault condition through the ModuleFaultCause register defined in LowMemory 
+Address 41, Bits 7-0.   
+ 
+8.13 Lane Frequency 
+Lane frequency reporting is defined Page 1A, 232 -247. This set of registers define the nominal 
+output frequency at room temperature. Represented as 16-bit unsigned integer with LSB equal to 
+5Ghz for a full range of 0 to 327.67Thz.  
+   
+8.14 Lane Faults and Warnings 
+ELSFP modules shall report system level lane specific faults and warnings. Lane faults are defined 
+in Page 1A, Address 166-169. Lane warnings are defined in Page 1Ah, Address 174 -177. The cause 
+for lane faults is defined in Page 1A, Address 212-219, Bit3-0. The cause for lane warning is defined 
+in Page 1A, Address 212 -219, Bit7-4. For example, faults and warnings related to loss of power 
+===== PAGE 13 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   13 
+ 
+control and current control are defined here. It is left to the module implementation to provide a 
+recommended course of action when a lane fault and warning flag is raised by the ELSFP.  
+ELSFP modules shall indicate a summary of the lane faults defined in Page 1Ah, bytes 166-169.The 
+registers are defined in Table 6. These bits are all Boolean OR’d together to provide a summary fault 
+reflected in the LaneSummaryFault bit. Note that this bit is not Latched or COR because the source 
+alarms themselves are latched/COR. 
+ 
+Figure 1 Lane Specific Fault Summary 
+ 
+Lane specific faults are defined in Table 3 below: 
+ 
+Table 2 Lane Fault Codes 
+Lane Fault Code Value Fault Cause 
+0 No alarm detected 
+1 Automatic Power Control (APC) control loop failure 
+2 Automatic Current Control (ACC) control loop failure 
+3-8 Reserved for future standardization  
+9-15 Vendor specific fault 
+  
+Modules shall also indicate a summary of the lane warnings defined in Page 1Ah, bytes 174 -177. 
+These bits are all Boolean OR’d together to provide a summary warning reflected in the 
+LaneSummaryWarning bit. Note that this bit is not Latched or COR because t he source alarms 
+themselves are latched/COR. 
+
+===== PAGE 14 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   14 
+ 
+Figure 2 Lane Specific Warning Summary 
+ 
+ 
+ 
+Lane warning codes are defined in Table 4 below: 
+ 
+ 
+Table 3 Lane Warning Codes 
+Lane Warning Code Value Warning Cause 
+0 No warning detected 
+1 Automatic Power Control (APC) control loop warning 
+2 Automatic  Current Control (ACC) control loop warning 
+3-8 Reserved for future standardization 
+9-15 Vendor specific warning 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+===== PAGE 15 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   15 
+ 
+ 
+ 
+9 ELSFP Memory Map - Page 1Ah and Page 1Bh 
+ 
+Figure 3 ELSFP Memory Layout 
+ 
+ 
+All analog values are store in Big Endian order (MSB in lower address) 
+Table 4 Module advertisements (Page 1Ah) 
+Byte Bits Field Name Register Description Type 
+128-129 All MaxOpticalPower Maximum operatable ELSFP output power per 
+lane encoded as U16 in increments of 10uW. 
+Total range of 0mW to 655.35mW. In ACC mode, 
+this register reports 0. 
+RO 
+130-131 All MinOpticalPower Minimum operatable ELSFP output power per 
+lane encoded as U16 in increments of 10uW. 
+Total range of 0mW to 655.35mW. In ACC mode, 
+this register reports 0. 
+RO 
+Bank Select
+(Byte 1 6 
+Page Select
+(Byte 1   
+Page 1Ah
+Module Adver sements
+(Bytes 1 8 16  
+Module and lane alarms and 
+warnings
+(Bytes 165 181 
+Laser se ng and Save Restore
+(Bytes 18  185 
+Banked Laser
+Alarms  Warnings  Faults
+(Bytes 186  1  
+Banked Laser
+Enable Disable
+(Bytes         
+Banked Laser
+Output Fiber Check Flag
+(Byte     
+Banked Laser Addi onal Informa on
+(Bytes      55 
+Page 1Bh
+Banked Laser
+Current   Op cal Power Setpoints
+(Bytes 1 8 18  
+Banked Laser
+Current   Op cal    oltage Monitors
+(Bytes 1 8 18  
+Banked 
+Laser 
+Inde ing
+Banked 
+Laser 
+Inde ing
+===== PAGE 16 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   16 
+ 
+132-133 All MaxLaserBias Maximum operatable laser current bias per lane 
+encoded as U16 in increments of 100uA. Total 
+range of 0A to 6.5535A. In APC mode, this 
+register reports 0. 
+RO 
+134-135 All MinLaserBias Minimum operatable laser current bias per lane 
+encoded as U16 in increments of 100uA. Total 
+range of 0A to 6.5535A. In APC mode, this 
+register reports 0. 
+RO 
+136-137 All Reserved Reserved  
+138-139 All Reserved Reserved  
+140 0 ControlModeAPCACC ELSFP Control (ACC or APC) as implemented by 
+supplier 
+0b: Automatic Current Control (ACC) 
+implemented,  
+1b: Automatic Power Control (APC) 
+implemented.  
+RO 
+7-1 NumberOfLanes Number of Lanes supported on this ELSFP 
+module. The number of supported banks may be 
+inferred from the number of lanes (8 lanes per 
+bank). 
+141-142 All BiasHighAlarm Laser bias high alarm threshold in increments of 
+100uA 
+RO 
+143-144 All BiasLowAlarm Laser bias low alarm threshold in increments of 
+100uA  
+RO 
+145-146 All BiasHighWarn Laser bias high warning threshold in increments 
+of 100uA  
+RO 
+147-148 All BiasLowWarn Laser bias low warning threshold in increments 
+of 100uA  
+RO 
+149-150 All OptPowerHighAlarm Optical power high alarm threshold in 
+increments of 10uW  
+RO 
+151-152 All OptPowerLowAlarm Optical power low alarm threshold in 
+increments of 10uW  
+RO 
+153-154 All OptPowerHighWarn Optical power high warning threshold in 
+increments of 10uW  
+RO 
+155-156 All OptPowerLowWarn Optical power low warning threshold in 
+increments of 10uW  
+RO 
+157-164 All Reserved Reserved  
+ 
+===== PAGE 17 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   17 
+ 
+Table 5 Lane fault and warnings (Page 1Ah) 
+Byte Bits Field Name Register Description Type 
+165 0 Reserved Reserved RO 
+ 1 Reserved Reserved 
+2  LaneSummaryFault  1b: OR’ed lane faults 
+3 LaneSummaryWarning 1b: OR’ed lane warnings 
+4-7 Reserved Reserved 
+166 
+0 FaultFlagLane1 1b: ELSFP fault condition in lane1 
+Latched, 
+COR 
+ 
+1 FaultFlagLane2 1b: ELSFP fault condition in lane2 
+2 FaultFlagLane3 1b: ELSFP fault condition in lane3 
+3 FaultFlagLane4 1b: ELSFP fault condition in lane4 
+4 FaultFlagLane5 1b: ELSFP fault condition in lane5 
+5 FaultFlagLane6 1b: ELSFP fault condition in lane6 
+6 FaultFlagLane7 1b: ELSFP fault condition in lane7 
+7 FaultFlagLane8 1b: ELSFP fault condition in lane8 
+167 
+0 FaultFlagLane9 1b: ELSFP fault condition in lane9 Latched, 
+COR 1 FaultFlagLane10 1b: ELSFP fault condition in lane10 
+2 FaultFlagLane11 1b: ELSFP fault condition in lane11 
+3 FaultFlagLane12 1b: ELSFP fault condition in lane12 
+4 FaultFlagLane13 1b: ELSFP fault condition in lane13 
+5 FaultFlagLane14 1b: ELSFP fault condition in lane14 
+6 FaultFlagLane15 1b: ELSFP fault condition in lane15 
+7 FaultFlagLane16 1b: ELSFP fault condition in lane16 
+168 
+0 FaultFlagLane17 1b: ELSFP fault condition in lane17 Latched, 
+COR 1 FaultFlagLane18 1b: ELSFP fault condition in lane18 
+2 FaultFlagLane19 1b: ELSFP fault condition in lane19 
+3 FaultFlagLane20 1b: ELSFP fault condition in lane20 
+4 FaultFlagLane21 1b: ELSFP fault condition in lane21 
+5 FaultFlagLane22 1b: ELSFP fault condition in lane22 
+6 FaultFlagLane23 1b: ELSFP fault condition in lane23 
+7 FaultFlagLane24 1b: ELSFP fault condition in lane24 
+===== PAGE 18 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   18 
+ 
+169 
+0 FaultFlagLane25 1b: ELSFP fault condition in lane25 Latched, 
+COR 1 FaultFlagLane26 1b: ELSFP fault condition in lane26 
+2 FaultFlagLane27 1b: ELSFP fault condition in lane27 
+3 FaultFlagLane28 1b: ELSFP fault condition in lane28 
+4 FaultFlagLane29 1b: ELSFP fault condition in lane29 
+5 FaultFlagLane30 1b: ELSFP fault condition in lane30 
+6 FaultFlagLane31 1b: ELSFP fault condition in lane31 
+7 FaultFlagLane32 1b: ELSFP fault condition in lane32 
+170-173 All Reserved Reserved  
+174 
+0 WarnFlagLane1 1b: ELSFP warning condition in lane1  
+1 WarnFlagLane2 1b: ELSFP warning condition in lane2  
+2 WarnFlagLane3 1b: ELSFP warning condition in lane3  
+3 WarnFlagLane4 1b: ELSFP warning condition in lane4  
+4 WarnFlagLane5 1b: ELSFP warning condition in lane5  
+5 WarnFlagLane6 1b: ELSFP warning condition in lane6  
+6 WarnFlagLane7 1b: ELSFP warning condition in lane7  
+7 WarnFlagLane8 1b: ELSFP warning condition in lane8  
+175 
+0 WarnFlagLane9 1b: ELSFP warning condition in lane9  
+1 WarnFlagLane10 1b: ELSFP warning condition in lane10  
+2 WarnFlagLane11 1b: ELSFP warning condition in lane11  
+3 WarnFlagLane12 1b: ELSFP warning condition in lane12  
+4 WarnFlagLane13 1b: ELSFP warning condition in lane13  
+5 WarnFlagLane14 1b: ELSFP warning condition in lane14  
+6 WarnFlagLane15 1b: ELSFP warning condition in lane15  
+7 WarnFlagLane16 1b: ELSFP warning condition in lane16  
+176 
+0 WarnFlagLane17 1b: ELSFP warning condition in lane17  
+1 WarnFlagLane18 1b: ELSFP warning condition in lane18  
+2 WarnFlagLane19 1b: ELSFP warning condition in lane19  
+3 WarnFlagLane20 1b: ELSFP warning condition in lane20  
+4 WarnFlagLane21 1b: ELSFP warning condition in lane21  
+5 WarnFlagLane22 1b: ELSFP warning condition in lane22  
+===== PAGE 19 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   19 
+ 
+6 WarnFlagLane23 1b: ELSFP warning condition in lane23  
+7 WarnFlagLane24 1b: ELSFP warning condition in lane24  
+177 
+0 WarnFlagLane25 1b: ELSFP warning condition in lane25  
+1 WarnFlagLane26 1b: ELSFP warning condition in lane26  
+2 WarnFlagLane27 1b: ELSFP warning condition in lane27  
+3 WarnFlagLane28 1b: ELSFP warning condition in lane28  
+4 WarnFlagLane29 1b: ELSFP warning condition in lane29  
+5 WarnFlagLane30 1b: ELSFP warning condition in lane30  
+6 WarnFlagLane31 1b: ELSFP warning condition in lane31  
+7 WarnFlagLane32 1b: ELSFP warning condition in lane32  
+178-181 All Reserved Reserved  
+ 
+Table 6 Lane setting and saving and restoring factory/customer settings (Page 1Ah) 
+Byte Bits Field Name Register Description Type 
+182 All Reserved Reserved RO 
+183 All Reserved Reserved RO 
+184 All SaveRestoreCommand 
+10-1F: save and restore in specified set for laser 
+operation controls 
+10h: restore factory settings for Lane controls  
+11h: restore set1 Lane controls 
+12h: restore set2 Lane controls 
+13h-17h: reserved for future restore commands 
+18h: save set1 Lane controls 
+19h: save set2 Lane controls 
+1A-1Fh: reserved for future save commands 
+20h-2Fh: save and restore in specified set for 
+alarm & warning masks 
+20h: restore factory settings for flags and 
+warnings 
+21h: restore set1 alarm/warning masks 
+22h: restore set2 alarm/warning masks 
+23h-27h: reserved for future 
+RW 
+===== PAGE 20 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   20 
+ 
+28h: save set1 alarm/warning masks 
+29h: save set2 alarm/warning masks 
+2A-21Fh: reserved for future save commands 
+185 All SaveRestoreConfirm 
+Read this register to ascertain status of 
+command written to register 184 corresponding 
+to set bank of lanes. 
+01h: successful completion of command in 
+register 185 
+02h: command in progress 
+03h: invalid command 
+04h: no relevant saved content 
+05h-07h: reserved for future status codes 
+08h: command failed 
+Values in register 185 are only changed by the 
+ELSFP module based on outcome of the LAST 
+command written to register 184. 
+RO 
+ 
+Table 7 Alarms/warnings values, alarm/warning codes and masks for set lane bank (Page 
+1Ah) 
+Byte Bits Field Name Register Description Type 
+186 
+0 HighBiasAlarmIndexed1 1b: High bias alarm on indexed lane 1 Latched, 
+COR 1 HighBiasAlarmIndexed2 1b: High bias alarm on indexed lane 2 
+2 HighBiasAlarmIndexed3 1b: High bias alarm on indexed lane 3 
+3 HighBiasAlarmIndexed4 1b: High bias alarm on indexed lane 4 
+4 HighBiasAlarmIndexed5 1b: High bias alarm on indexed lane 5 
+5 HighBiasAlarmIndexed6 1b: High bias alarm on indexed lane 6 
+6 HighBiasAlarmIndexed7 1b: High bias alarm on indexed lane 7 
+7 HighBiasAlarmIndexed8 1b: High bias alarm on indexed lane 8 
+187 
+0 LowBiasAlarmIndexed1 1b: Low bias alarm on indexed lane 1 Latched, 
+COR 1 LowBiasAlarmIndexed2 1b: Low bias alarm on indexed lane 2 
+2 LowBiasAlarmIndexed3 1b: Low bias alarm on indexed lane 3 
+3 LowBiasAlarmIndexed4 1b: Low bias alarm on indexed lane 4 
+4 LowBiasAlarmIndexed5 1b: Low bias alarm on indexed lane 5 
+===== PAGE 21 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   21 
+ 
+5 LowBiasAlarmIndexed6 1b: Low bias alarm on indexed lane 6 
+6 LowBiasAlarmIndexed7 1b: Low bias alarm on indexed lane 7 
+7 LowBiasAlarmIndexed8 1b: Low bias alarm on indexed lane 8 
+188 
+0 HighBiasWarnIndexed1 1b: High bias warning on indexed lane 1 Latched, 
+COR 1 HighBiasWarnIndexed2 1b: High bias warning on indexed lane 2 
+2 HighBiasWarnIndexed3 1b: High bias warning on indexed lane 3 
+3 HighBiasWarnIndexed4 1b: High bias warning on indexed lane 4 
+4 HighBiasWarnIndexed5 1b: High bias warning on indexed lane 5 
+5 HighBiasWarnIndexed6 1b: High bias warning on indexed lane 6 
+6 HighBiasWarnIndexed7 1b: High bias warning on indexed lane 7 
+7 HighBiasWarnIndexed8 1b: High bias warning on indexed lane 8 
+189 
+0 LowBiasWarnIndexed1 1b: Low bias warning on indexed lane 1 Latched, 
+COR 1 LowBiasWarnIndexed2 1b: Low bias warning on indexed lane 2 
+2 LowBiasWarnIndexed3 1b: Low bias warning on indexed lane 3 
+3 LowBiasWarnIndexed4 1b: Low bias warning on indexed lane 4 
+4 LowBiasWarnIndexed5 1b: Low bias warning on indexed lane 5 
+5 LowBiasWarnIndexed6 1b: Low bias warning on indexed lane 6 
+6 LowBiasWarnIndexed7 1b: Low bias warning on indexed lane 7 
+7 LowBiasWarnIndexed8 1b: Low bias warning on indexed lane 8 
+190 
+0 HighPowerAlarmIndexed1 1b: High optical power alarm on indexed lane 1 Latched, 
+COR 1 HighPowerAlarmIndexed2 1b: High optical power alarm on indexed lane 2 
+2 HighPowerAlarmIndexed3 1b: High optical power alarm on indexed lane 3 
+3 HighPowerAlarmIndexed4 1b: High optical power alarm on indexed lane 4 
+4 HighPowerAlarmIndexed5 1b: High optical power alarm on indexed lane 5 
+5 HighPowerAlarmIndexed6 1b: High optical power alarm on indexed lane 6 
+6 HighPowerAlarmIndexed7 1b: High optical power alarm on indexed lane 7 
+7 HighPowerAlarmIndexed8 1b: High optical power alarm on indexed lane 8 
+191 
+0 LowPowerAlarmIndexed1 1b: Low optical power alarm on indexed lane 1 Latched, 
+COR 1 LowPowerAlarmIndexed2 1b: Low optical power alarm on indexed lane 2 
+2 LowPowerAlarmIndexed3 1b: Low optical power alarm on indexed lane 3 
+3 LowPowerAlarmIndexed4 1b: Low optical power alarm on indexed lane 4 
+===== PAGE 22 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   22 
+ 
+4 LowPowerAlarmIndexed5 1b: Low optical power alarm on indexed lane 5 
+5 LowPowerAlarmIndexed6 1b: Low optical power alarm on indexed lane 6 
+6 LowPowerAlarmIndexed7 1b: Low optical power alarm on indexed lane 7 
+7 LowPowerAlarmIndexed8 1b: Low optical power alarm on indexed lane 8 
+192 
+0 HighPowerWarnIndexed1 1b: High optical power warning on indexed lane 1 Latched, 
+COR 1 HighPowerWarnIndexed2 1b: High optical power warning on indexed lane 2 
+2 HighPowerWarnIndexed3 1b: High optical power warning on indexed lane 3 
+3 HighPowerWarnIndexed4 1b: High optical power warning on indexed lane 4 
+4 HighPowerWarnIndexed5 1b: High optical power warning on indexed lane 5 
+5 HighPowerWarnIndexed6 1b: High optical power warning on indexed lane 6 
+6 HighPowerWarnIndexed7 1b: High optical power warning on indexed lane 7 
+7 HighPowerWarnIndexed8 1b: High optical power warning on indexed lane 8 
+193 
+0 LowPowerWarnIndexed1 1b: Low optical power warning on indexed lane 1 Latched, 
+COR 1 LowPowerWarnIndexed2 1b: Low optical power warning on indexed lane 2 
+2 LowPowerWarnIndexed3 1b: Low optical power warning on indexed lane 3 
+3 LowPowerWarnIndexed4 1b: Low optical power warning on indexed lane 4 
+4 LowPowerWarnIndexed5 1b: Low optical power warning on indexed lane 5 
+5 LowPowerWarnIndexed6 1b: Low optical power warning on indexed lane 6 
+6 LowPowerWarnIndexed7 1b: Low optical power warning on indexed lane 7 
+7 LowPowerWarnIndexed8 1b: Low optical power warning on indexed lane 8 
+194-197 All Reserved Reserved  
+198 0 HighBiasAlarmMask1 Mask for HighBiasAlarmIndexed. See [1] Section 
+8.1.4.2 for more information on Masks, Flags, and 
+Interrupt Requests. 
+1b: Alarm interrupt is disabled on indexed lane n 
+(n=1 to 8) 
+0b: Alarm interrupt is enabled on indexed lane n 
+(n=1 to 8) 
+ 
+ 
+RW 
+ 1 HighBiasAlarmMask2 
+ 2 HighBiasAlarmMask3 
+ 3 HighBiasAlarmMask4 
+ 4 HighBiasAlarmMask5 
+ 5 HighBiasAlarmMask6 
+ 6 HighBiasAlarmMask7 
+ 7 HighBiasAlarmMask8 
+199 0 LowBiasAlarmMask1 RW 
+ 1 LowBiasAlarmMask2 
+===== PAGE 23 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   23 
+ 
+ 2 LowBiasAlarmMask3 Mask for LowBiasAlarmIndexed. See [1] Section 
+8.1.4.2 for more information on Masks, Flags, and 
+Interrupt Requests. 
+1b: Alarm interrupt is disabled on indexed lane n 
+(n=1 to 8) 
+0b: Alarm interrupt is enabled on indexed lane n 
+(n=1 to 8) 
+ 
+ 3 LowBiasAlarmMask4 
+ 4 LowBiasAlarmMask5 
+ 5 LowBiasAlarmMask6 
+ 6 LowBiasAlarmMask7 
+ 7 LowBiasAlarmMask8 
+200 0 HighBiasWarnMask1 Mask for HighBiasWarnIndexed. See [1] Section 
+8.1.4.2 for more information on Masks, Flags, and 
+Interrupt Requests. 
+1b: Warning interrupt is disabled on indexed lane 
+n (n=1 to 8) 
+0b: Warning interrupt is enabled on indexed lane 
+n (n=1 to 8) 
+ 
+RW 
+ 1 HighBiasWarnMask2 
+ 2 HighBiasWarnMask3 
+ 3 HighBiasWarnMask4 
+ 4 HighBiasWarnMask5 
+ 5 HighBiasWarnMask6 
+ 6 HighBiasWarnMask7 
+ 7 HighBiasWarnMask8 
+201 0 LowBiasWarnMask1 Mask for LowBiasWarnIndexed. See [1] Section 
+8.1.4.2 for more information on Masks, Flags, and 
+Interrupt Requests. 
+1b: Warning interrupt is disabled on indexed lane 
+n (n=1 to 8) 
+0b: Warning interrupt is enabled on indexed lane 
+n (n=1 to 8) 
+ 
+RW 
+ 1 LowBiasWarnMask2 
+ 2 LowBiasWarnMask3 
+ 3 LowBiasWarnMask4 
+ 4 LowBiasWarnMask5 
+ 5 LowBiasWarnMask6 
+ 6 LowBiasWarnMask7 
+ 7 LowBiasWarnMask8 
+202 0 HighPowerAlarmMask1 Mask for HighPowerAlarmIndexed. See [1] 
+Section 8.1.4.2 for more information on Masks, 
+Flags, and Interrupt Requests. 
+1b: Alarm interrupt is disabled on indexed lane n 
+(n=1 to 8) 
+0b: Alarm interrupt is enabled on indexed lane n 
+(n=1 to 8) 
+RW 
+ 1 HighPowerAlarmMask2 
+ 2 HighPowerAlarmMask3 
+ 3 HighPowerAlarmMask4 
+ 4 HighPowerAlarmMask5 
+ 5 HighPowerAlarmMask6 
+ 6 HighPowerAlarmMask7 
+ 7 HighPowerAlarmMask8 
+===== PAGE 24 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   24 
+ 
+203 0 LowPowerAlarmMask1 Mask for LowPowerAlarmIndexed. See [1] Section 
+8.1.4.2 for more information on Masks, Flags, and 
+Interrupt Requests. 
+1b: Alarm interrupt is disabled on indexed lane n 
+(n=1 to 8) 
+0b: Alarm interrupt is enabled on indexed lane n 
+(n=1 to 8) 
+RW 
+ 1 LowPowerAlarmMask2 
+ 2 LowPowerAlarmMask3 
+ 3 LowPowerAlarmMask4 
+ 4 LowPowerAlarmMask5 
+ 5 LowPowerAlarmMask6 
+ 6 LowPowerAlarmMask7 
+ 7 LowPowerAlarmMask8 
+204 0 HighPowerWarnMask1 Mask for HighPowerWarnIndexed. See [1] Section 
+8.1.4.2 for more information on Masks, Flags, and 
+Interrupt Requests. 
+1b: Warning interrupt is disabled on indexed lane 
+n (n=1 to 8) 
+0b: Warning interrupt is enabled on indexed lane 
+n (n=1 to 8) 
+RW 
+ 1 HighPowerWarnMask2 
+ 2 HighPowerWarnMask3 
+ 3 HighPowerWarnMask4 
+ 4 HighPowerWarnMask5 
+ 5 HighPowerWarnMask6 
+ 6 HighPowerWarnMask7 
+ 7 HighPowerWarnMask8 
+205 0 LowPowerWarnMask1 Mask for LowPowerWarnIndexed. See [1] Section 
+8.1.4.2 for more information on Masks, Flags, and 
+Interrupt Requests. 
+1b: Warning interrupt is disabled on indexed lane 
+n (n=1 to 8) 
+0b: Warning interrupt is enabled on indexed lane 
+n (n=1 to 8) 
+RW 
+ 1 LowPowerWarnMask2 
+ 2 LowPowerWarnMask3 
+ 3 LowPowerWarnMask4 
+ 4 LowPowerWarnMask5 
+ 5 LowPowerWarnMask6 
+ 6 LowPowerWarnMask7 
+ 7 LowPowerWarnMask8 
+206-209 All Reserved Reserved   
+210 0 GlobalAlarmMask1 Global Alarm mask. See [1] Section 8.1.4.2 for 
+more information on Masks, Flags, and Interrupt 
+Requests. 
+1b: All alarms interrupts are disabled for on lane 
+n (n=1 to 8) irrespective of individual 
+alarm/warning setting 
+RW 
+ 1 GlobalAlarmMask2 
+ 2 GlobalAlarmMask3 
+ 3 GlobalAlarmMask4 
+ 4 GlobalAlarmMask5 
+ 5 GlobalAlarmMask6 
+===== PAGE 25 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   25 
+ 
+ 6 GlobalAlarmMask7 0b: All Alarms interrupts are enabled on indexed 
+lane n (n=1 to 8) irrespective of individual 
+alarm/warning setting  7 GlobalAlarmMask8 
+211 0 GlobalWarnMask1 Global Warning Mask. See [1] Section 8.1.4.2 for 
+more information on Masks, Flags, and Interrupt 
+Requests. 
+1b: All warnings are disabled for on lane n (n=1 to 
+8) irrespective of individual alarm/warning setting 
+0b: All warnings are enabled on indexed lane n 
+(n=1 to 8) irrespective of individual 
+alarm/warning setting 
+RW 
+ 1 GlobalWarnMask2 
+ 2 GlobalAlarmMask3 
+ 3 GlobalAlarmMask4 
+ 4 GlobalAlarmMask5 
+ 5 GlobalAlarmMask6 
+ 6 GlobalAlarmMask7 
+ 7 GlobalAlarmMask8 
+212 0-3 FaultCode1 
+Fault code for indexed lane for n=1 
+Values: See Table 2 RO 
+ 4-7 WarningCode1 
+Warning code for indexed lane n=1 
+Values:  See Table 3 
+RO 
+213 0-3 FaultCode2 
+Fault code for indexed lane for n=2 
+Values: See Table 2 
+RO 
+ 4-7 WarningCode3 
+Warning code for indexed lane n=2 
+Values: See Table 3 
+RO 
+214 0-3 FaultCode3 
+Fault code for indexed lane for n=3 
+Values: See Table 2 
+RO 
+ 4-7 WarningCode3 
+Warning code for indexed lane n=3 
+Values: See Table 3 
+RO 
+215 0-3 FaultCode4 
+Fault code for indexed lane for n=4 
+Values: See Table 2 
+RO 
+ 4-7 WarningCode4 
+Warning code for indexed lane n=4 
+Values: See Table 3 
+RO 
+216 0-3 FaultCode5 
+Fault code for indexed lane for n=5 
+Values: See Table 2 
+RO 
+ 4-7 WarningCode5 
+Warning code for indexed lane n=5 
+Values: See Table 3 
+RO 
+217 0-3 FaultCode6 
+Fault code for indexed lane for n=6 
+Values: See Table 2 
+RO 
+ 4-7 WarningCode6 
+Warning code for indexed lane n=6 
+Values: See Table 3 
+RO 
+218 0-3 FaultCode7 Fault code for indexed lane for n=7 RO 
+===== PAGE 26 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   26 
+ 
+Values: See Table 2 
+ 4-7 WarningCode7 
+Warning code for indexed lane n=7 
+Values: See Table 3 
+RO 
+219 0-3 FaultCode8 
+Fault code for indexed lane for n=8 
+Values: See Table 2 
+RO 
+ 4-7 WarningCode8 
+Warning code for indexed lane n=8 
+Values: See Table 3 
+RO 
+ 
+Table 8 Per lane enable/disable control and lane state for set lane bank (Page 1Ah) 
+Byte Bits Field Name Register Description Type 
+220 0 LaneEnable1 0b: Turn off output for indexed lane n (n=1 to 8) 
+1b: Turn on output for indexed lane n (n=1 to 8) 
+RW 
+ 1 LaneEnable2 
+ 2 LaneEnable3 
+ 3 LaneEnable4 
+ 4 LaneEnable5 
+ 5 LaneEnable6 
+ 6 LaneEnable7 
+ 7 LaneEnable8 
+221 0-1 LaneState1 Lane state for indexed lane n (n=1 to 4) 
+00b: Lane Output off 
+01b: Lane Output ramping (transition state) 
+10b: Lane Output on 
+11b: Reserved 
+RO 
+ 2-3 LaneState2 
+ 4-5 LaneState3 
+ 6-7 LaneState4 
+222 0-1 LaneState5 Lane Output state for indexed lane n (n=5 to 8) 
+00b: Lane Output off 
+01b: Lane Output ramping (transition state) 
+10b: Lane Output on 
+11b: Reserved 
+RO 
+ 2-3 LaneState6 
+ 4-5 LaneState7 
+ 6-7 LaneState8 
+ 
+Table 9 Per lane output fiber link checked flag for selected lane bank (Page 1Ah) 
+Byte Bits Field Name Register Description Type 
+===== PAGE 27 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   27 
+ 
+223 0 OutputFiberCheckedFlagLane1 
+The check flag for each output to confirm 
+expected input power received on the other end 
+of the fiber link of lane n (n=1 to 8).  
+0b: Fiber has NOT been checked, therefore 
+optical power is restricted.  
+1b: Fiber has been checked and expected input 
+power was received to confirm continuity, no 
+restriction to lane output power on this fiber 
+(n=1 to 8) 
+RW 
+1 OutputFiberCheckedFlagLane2 
+2 OutputFiberCheckedFlagLane3 
+3 OutputFiberCheckedFlagLane4 
+4 OutputFiberCheckedFlagLane5 
+5 OutputFiberCheckedFlagLane6 
+6 OutputFiberCheckedFlagLane7 
+7 OutputFiberCheckedFlagLane8 
+ 
+Table 10 Additional per lane information such as lane to fiber mapping and reference 
+frequency for 8 lanes for set lane bank (Page 1Ah) 
+Byte Bits Field Name Register Description Type 
+224 All LaneToFiberMapping1 Integer value maps indexed lane n (n=1 to 8) to 
+fiber # on optical connector 
+RO 
+225 All LaneToFiberMapping2 Integer value maps indexed lane n (n=1 to 8) to 
+fiber # on optical connector 
+RO 
+226 All LaneToFiberMapping3 Integer value maps indexed lane n (n=1 to 8) to 
+fiber # on optical connector 
+RO 
+227 All LaneToFiberMapping4 Integer value maps indexed lane n (n=1 to 8) to 
+fiber # on optical connector 
+RO 
+228 All LaneToFiberMapping5 Integer value maps indexed lane n (n=1 to 8) to 
+fiber # on optical connector 
+RO 
+229 All LaneToFiberMapping6 Integer value maps indexed lane n (n=1 to 8) to 
+fiber # on optical connector 
+RO 
+230 All LaneToFiberMapping7 Integer value maps indexed lane n (n=1 to 8) to 
+fiber # on optical connector 
+RO 
+231 All LaneToFiberMapping8 Integer value maps indexed lane n (n=1 to 8) to 
+fiber # on optical connector 
+RO 
+232-
+233 All LaneFreq1 
+Lane freq for indexed lane n (n=1 to 8) in 
+increments of 5 GHz.  Total possible range of 0 to 
+327.67Thz.  
+RO 
+234-
+235 All LaneFreq2 
+Lane freq for indexed lane n (n=1 to 8) in 
+increments of 5 GHz.  Total possible range of 0 to 
+327.67Thz. 
+RO 
+===== PAGE 28 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   28 
+ 
+236-
+237 All LaneFreq3 
+Lane freq for indexed lane n (n=1 to 8) in 
+increments of 5GHz. Total possible range of 0 to 
+327.67Thz. 
+RO 
+238-
+239 All LaneFreq4 
+Lane freq for indexed lane n (n=1 to 8) in 
+increments of 5 GHz. Total possible range of 0 to 
+327.67Thz. 
+RO 
+240-
+241 All LaneFreq5 
+Lane freq for indexed lane n (n=1 to 8) in 
+increments of 5 GHz. Total possible range of 0 to 
+327.67Thz. 
+RO 
+242-
+243 All LaneFreq6 
+Lane freq for indexed lane n (n=1 to 8) in 
+increments of 5 GHz. Total possible range of 0 to 
+327.67Thz. 
+RO 
+244-
+245 All LaneFreq7 
+Lane reference freq for indexed lane n (n=1 to 8) 
+in increments of 5 GHz. Total possible range of 0 
+to 327.67Thz. 
+RO 
+246-
+247 All LaneFreq8 
+Lane freq for indexed lane n (n=1 to 8) in 
+increments of 5 GHz. Total possible range of 0 to 
+327.67Thz. 
+RO 
+248 All OptCheckPowerSetpoint Setpoint for lane optical power for every lane in 
+increments of 1 mW. Total possible range of 0 to 
+255 mW, however the maximum power per fiber 
+shall not exceed 15dBm 
+RO 
+248-
+255 All Reserved Reserved  
+ 
+Table 11 Current Optical power setpoints, if supported for selected bank.  (Page 1Bh) 
+Byte Bits Field Name Register Description Type 
+128-
+129 
+All BiasCurrentSetpoint1 Setpoint for laser bias current indexed lane n 
+(n=1 to 8) in increments of 100 uA. Total possible 
+range of 0 to 6.5535A. 
+RW 
+130-
+131 
+All BiasCurrentSetpoint2 Setpoint for laser bias current indexed lane n 
+(n=1 to 8) in increments of 100 uA. Total possible 
+range of 0 to 6.5535A. 
+RW 
+132-
+133 
+All BiasCurrentSetpoint3 Setpoint for laser bias current indexed lane n 
+(n=1 to 8) in increments of 100 uA. Total possible 
+range of 0 to 6.5535A. 
+RW 
+===== PAGE 29 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   29 
+ 
+134-
+135 
+All BiasCurrentSetpoint4 Setpoint for laser bias current indexed lane n 
+(n=1 to 8) in increments of 100 uA. Total possible 
+range of 0 to 6.5535A. 
+RW 
+136-
+137 
+All BiasCurrentSetpoint5 Setpoint for laser bias current indexed lane n 
+(n=1 to 8) in increments of 100 uA. Total possible 
+range of 0 to 6.5535A. 
+RW 
+138-
+139 
+All BiasCurrentSetpoint6 Setpoint for laser bias current indexed lane n 
+(n=1 to 8) in increments of 100 uA. Total possible 
+range of 0 to 6.5535A. 
+RW 
+140-
+141 
+All BiasCurrentSetpoint7 Setpoint for laser bias current indexed lane n 
+(n=1 to 8) in increments of 100 uA. Total possible 
+range of 0 to 6.5535A. 
+RW 
+142-
+143 
+All BiasCurrentSetpoint8 Setpoint for laser bias current indexed lane n 
+(n=1 to 8) in increments of 100 uA. Total possible 
+range of 0 to 6.5535A. 
+RW 
+144-
+145 
+All OptPowerSetpoint1 Setpoint for lane optical power for indexed lane n 
+(n=1 to 8) in increments of 10 uW. Total possible 
+range of 0 to 655.35 mW. 
+RW 
+146-
+147 
+All OptPowerSetpoint2 Setpoint for lane optical power for indexed lane n 
+(n=1 to 8) in increments of 10 uW. Total possible 
+range of 0 to 655.35 m W. 
+RW 
+148-
+149 
+All OptPowerSetpoint3 Setpoint for lane optical power for indexed lane n 
+(n=1 to 8) in increments of 10 uW. Total possible 
+range of 0 to 655.35 m W. 
+RW 
+150-
+151 
+All OptPowerSetpoint4 Setpoint for lane optical power for indexed lane n 
+(n=1 to 8) in increments of 10 uW. Total possible 
+range of 0 to 655.35 m W. 
+RW 
+152-
+153 
+All OptPowerSetpoint5 Setpoint for lane optical power for indexed lane n 
+(n=1 to 8) in increments of 10 uW. Total possible 
+range of 0 to 655.35 m W. 
+RW 
+154-
+155 
+All OptPowerSetpoint6 Setpoint for lane optical power for indexed lane n 
+(n=1 to 8) in increments of 10 uW. Total possible 
+range of 0 to 655.35 m W. 
+RW 
+156-
+157 
+All OptPowerSetpoint7 Setpoint for lane optical power for indexed lane n 
+(n=1 to 8) in increments of 10 uW. Total possible 
+range of 0 to 655.35 m W. 
+RW 
+158-
+159 
+All OptPowerSetpoint8 Setpoint for lane optical power for indexed lane n 
+(n=1 to 8) in increments of 10 uW. Total possible 
+range of 0 to 655.35 m W. 
+RW 
+===== PAGE 30 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   30 
+ 
+160-
+183 
+All Reserved Reserved  
+ 
+Table 12 Current/optical/voltage monitors for selected bank. (Page 1Bh) 
+Byte Bits Field Name Register Description Type 
+184-
+185 
+All BiasCurrentMonitor1 Monitor for laser bias current indexed lane n (n=1 
+to 8) in increments of 100 uA. Total possible 
+range of 0 to 6.5535A. 
+RO 
+186-
+187 
+All BiasCurrentMonitor2 Monitor for laser bias current indexed lane n (n=1 
+to 8) in increments of 100 uA. Total possible 
+range of 0 to 6.5535A. 
+RO 
+188-
+189 
+All BiasCurrentMonitor3 Monitor for laser bias current indexed lane n (n=1 
+to 8) in increments of 100 uA. Total possible 
+range of 0 to 6.5535A. 
+RO 
+190-
+191 
+All BiasCurrentMonitor4 Monitor for laser bias current indexed lane n (n=1 
+to 8) in increments of 100 uA. Total possible 
+range of 0 to 6.5535A. 
+RO 
+192-
+193 
+All BiasCurrentMonitor5 Monitor for laser bias current indexed lane n (n=1 
+to 8) in increments of 100 uA. Total possible 
+range of 0 to 6.5535A. 
+RO 
+194-
+195 
+All BiasCurrentMonitor6 Monitor for laser bias current indexed lane n (n=1 
+to 8) in increments of 100 uA. Total possible 
+range of 0 to 6.5535A. 
+RO 
+196-
+197 
+All BiasCurrentMonitor7 Monitor for laser bias current indexed lane n (n=1 
+to 8) in increments of 100 uA. Total possible 
+range of 0 to 6.5535A. 
+RO 
+198-
+199 
+All BiasCurrentMonitor8 Monitor for laser bias current indexed lane n (n=1 
+to 8) in increments of 100 uA. Total possible 
+range of 0 to 6.5535A. 
+RO 
+200-
+201 
+All OptPowerMonitor1 Monitor for lane optical power for indexed lane n 
+(n=1 to 8) in increments of 10 uW. Total possible 
+range of 0 to 6.5535W. 
+RO 
+202-
+203 
+All OptPowerMonitor2 Monitor for lane optical power for indexed lane n 
+(n=1 to 8) in increments of 10 uW. Total possible 
+range of 0 to 6.5535W. 
+RO 
+204-
+205 
+All OptPowerMonitor3 Monitor for lane optical power for indexed lane n 
+(n=1 to 8) in increments of 10 uW. Total possible 
+range of 0 to 6.5535W. 
+RO 
+===== PAGE 31 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   31 
+ 
+206-
+207 
+All OptPowerMonitor4 Monitor for lane optical power for indexed lane n 
+(n=1 to 8) in increments of 10 uW. Total possible 
+range of 0 to 6.5535W. 
+RO 
+208-
+209 
+All OptPowerMonitor5 Monitor for lane optical power for indexed lane n 
+(n=1 to 8) in increments of 10 uW. Total possible 
+range of 0 to 6.5535W. 
+RO 
+210-
+211 
+All OptPowerMonitor6 Monitor for lane optical power for indexed lane n 
+(n=1 to 8) in increments of 10 uW. Total possible 
+range of 0 to 6.5535W. 
+RO 
+212-
+213 
+All OptPowerMonitor7 Monitor for lane optical power for indexed lane n 
+(n=1 to 8) in increments of 10 uW. Total possible 
+range of 0 to 6.5535W. 
+RO 
+214-
+215 
+All OptPowerMonitor8 Monitor for lane optical power for indexed lane n 
+(n=1 to 8) in increments of 10 uW. Total possible 
+range of 0 to 6.5535W. 
+RO 
+216-
+231 
+All Reserved  Reserved   
+232 All VoltageMonitor1 Monitor of laser voltage for indexed lane n (n-1 
+to 8) in increments of 15 mV for a full range from 
+0 to 3.825V 
+RO 
+233 All VoltageMonitor2 Monitor of laser voltage for indexed lane n (n-1 
+to 8) in increments of 15 mV for a full range from 
+0 to 3.825V 
+RO 
+234 All VoltageMonitor3 Monitor of laser voltage for indexed lane n (n-1 
+to 8) in increments of 15 mV for a full range from 
+0 to 3.825V 
+RO 
+235 All VoltageMonitor4 Monitor of laser voltage for indexed lane n (n-1 
+to 8) in increments of 15 mV for a full range from 
+0 to 3.825V 
+RO 
+236 All VoltageMonitor5 Monitor of laser voltage for indexed lane n (n-1 
+to 8) in increments of 15 mV for a full range from 
+0 to 3.825V 
+RO 
+237 All VoltageMonitor6 Monitor of laser voltage for indexed lane n (n-1 
+to 8) in increments of 15 mV for a full range from 
+0 to 3.825V 
+RO 
+238 All VoltageMonitor7 Monitor of laser voltage for indexed lane n (n-1 
+to 8) in increments of 15 mV for a full range from 
+0 to 3.825V 
+RO 
+===== PAGE 32 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   32 
+ 
+239 All VoltageMonitor8 Monitor of laser voltage for indexed lane n (n-1 
+to 8) in increments of 15 mV for a full range from 
+0 to 3.825V 
+RO 
+240-
+241 
+All ICCMonitor Monitor of ELSFP Module VCC Current, in 
+increments of 200 uA, for a full range from 0 to 
+13.107A. If not supported, a value of 0000h will 
+be reported. 
+RO Opt 
+242-
+255 
+All Reserved Reserved  
+ 
+ 
+ 
+10 ELSFP Module Firmware Upgrade 
+CMIS defined an optional Command Data Block (CDB) feature allows host-originated functional 
+interactions between host and module beyond the basic CMIS core interactions, which allow only 
+to READ or WRITE registers defined in the I2CMCI.  CDB is best understood as an asymmetric 
+message exchange mechanism for implementing a command and reply type of interaction. This 
+proposal leverages the CDB message exchange format defined in CMIS for allowing hosts to update 
+firmware in ELSFP Modules. CDB uses pages 0x9F to 0xAF.  
+Specifically, the following CDB commands will be implemented for ELSFP modules for the purpose 
+of updating ELSFP firmware. ELSFP vendors could potentially reuse CDB commands to update 
+vendor specific calibration data through CDB.  
+Table 9-14 in OIF-CMIS-05.2 lists the CDB Firmware Download commands to be supported by ELSFP 
+modules. 
+  
+11 References 
+ 
+11.1 Normative references 
+1. [CMIS] Common Management Interface Specification Rev 5.3, https://www.oiforum.com/wp-
+content/uploads/OIF-CMIS-05.3.pdf 
+ 
+11.2 Informative references 
+1. [ELSFP IA] ELSFP Hardware Implementation Agreement, OIF2022.436.09 
+2. White Paper: Management of External Light Sources and Co-Packaged Optical Engines,  OIF-
+MGT–Co-Packaging–ELSFP-01.0, https://www.oiforum.com/wp-content/uploads/OIF-MGT-Co-
+Packaging-ELSFP-01.0-1.pdf 
+ 
+===== PAGE 33 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   33 
+ 
+12 Appendix A: Glossary 
+CDB: Command Data Block. Defined in [1]. 
+COR: Clear-on-read. Usage defined in [1]. 
+DPSM: Data Path State Machine. Defined in [1]. 
+EEPROM: Electrically Erasable Programmable Read-Only Memory. 
+Lane: A lane is a single wavelength on a single fiber core. 
+MSB: Most Significant Byte. Usage defined in [1]. 
+LSB: Least Significant Byte. Usage defined in [1]. 
+MSM: Module State Machine. Defined in [1]. 
+NPSM: Network Path State Machine. Defined in [1]. 
+NV RAM: Non-Volatile RAM. As defined in [1]. 
+Resource Module: Module that provides access to manage some resources, but not all of a typical 
+optical transceiver. To be defined in [1] version 5.3. 
+RO: Read-only. Usage defined in [1]. 
+RW: Read-write. Usage defined in [1]. 
+S16: Signed 16-bit 2s complement integer. Usage defined in [1]. 
+U16: Unsigned 16-bit integer. Usage defined in [1]. 
+APC: Automatic Power Control. As defined in Section 8.4 
+ACC: Automatic Current Control. As defined in Section 8.4 
+ 
+13 Appendix B: Open Issues / current work items 
+Worklist maintained at oif2023.249.xx 
+ 
+14 Appendix C: List of companies belonging to OIF when document is approved 
+Accelight 
+Technologies, Inc. Dell, Inc. Lightmatter Retym 
+Accton Technology 
+Corporation Dexerials Corporation 
+Linktel Technologies Co., 
+Ltd. 
+Rosenberger 
+Hochfrequenztechnik GmbH 
+& Co. KG 
+Adtran Networks SE EFFECT Photonics B.V. Lumentum Samsung Electronics Co. Ltd. 
+Advanced Fiber 
+Resources (AFR) Eoptolink Technology Lumiphase AG Samtec Inc. 
+Advanced Micro 
+Devices, Inc. 
+Epson Electronics 
+America, Inc. LUXIC Technology Co SCINTIL Photonics 
+AIO Core Co., Ltd Ericsson 
+Luxshare Technologies 
+International, Inc. Semtech Canada Corporation 
+===== PAGE 34 =====
+                                                                                                          OIF-ELSFP-CMIS-01.0 
+www.oiforum.com                                                                                                                                                   34 
+ 
+Alibaba EXFO 
+MACOM Technology 
+Solutions Senko Advanced Components 
+Alphawave Semi 
+Foxconn Interconnect 
+Technology Ltd 
+Marvell Semiconductor, 
+Inc. SeriaLink Systems Ltd. 
+Amazon Fujikura MaxLinear Inc. Sicoya GmbH 
+Amphenol Corp. Fujitsu MediaTek SiFotonics Technologies Inc. 
+Anritsu Furukawa Electric Co., Ltd. Meta Platforms Silith Technology 
+Applied 
+Optoelectronics, Inc. Global Foundries 
+Microchip Technology 
+Incorporated Socionext Inc. 
+Arista Networks Google Microsoft Corporation Source Photonics, Inc. 
+Astera Labs H3C Technologies Co., Ltd. Mitsubishi Electric US, Inc. Spirent Communications 
+Ayar Labs Hakusan Inc Molex 
+Sumitomo Electric Industries, 
+Ltd. 
+BitifEye Digital Test 
+Solutions GmbH 
+Hewlett Packard 
+Enterprise (HPE) Multilane Inc. Sumitomo Osaka Cement 
+BizLink Technology, 
+Inc. 
+HGGenuine Optics Tech 
+Company NEC Corporation Synopsys, Inc. 
+Broadcom Inc. Hirose Electric Co. Ltd. Nokia TE Connectivity 
+Cadence Design 
+Systems 
+Hisense Broadband 
+Multimedia Technologies 
+Co., LTD NTT Corporation Tektronix 
+Casela Technologies 
+USA 
+Huawei Technologies Co., 
+Ltd. 
+Nubis Communications, 
+Inc. Telefonica S.A. 
+Celestica Infinera Corporation NVIDIA TELUS Communications, Inc. 
+China Telecom InfiniLink 
+O-Net Technologies 
+(Shenzhen) Group Co., 
+Limited Teramount 
+CICT 
+InnoLight Technology 
+Limited Omniva LLC TeraSignal, LLC. 
+Ciena Corporation 
+Integrated Device 
+Technology Optomind Inc. US Conec 
+Cisco Systems Intel Orange 
+Viavi Solutions Deutschland 
+GmbH 
+Coherent Juniper Networks PETRA Wilder Technologies, LLC 
+ColorChip LTD Kandou Bus Point2 Technology Wistron Corporation 
+Cornelis Networks, 
+Inc. KDDI Research, Inc. 
+Precision Optical 
+Technologies Xphor Ltd. 
+Corning 
+Keysight Technologies, 
+Inc. Quantifi Photonics USA Inc. Yamaichi Electronics Ltd. 
+Credo 
+Semiconductor (HK) 
+LTD KYOCERA Corporation Quintessent Inc. ZTE Corporation 
+Dai Nippon Printing 
+Co., Ltd. Lessengers Inc. Ranovus  
+ 
